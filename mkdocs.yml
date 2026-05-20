@@ -11,6 +11,7 @@ theme:
 
 nav:
   - Home: index.md
-  - Visão do Produto: documento_visao/visao.md
+  - Arquitetura: arquitetura/Arquitetura.md
+  - Visão do Produto: visao/visao.md
   - Atas de Reunião: atas/index.md
   - Templates: templates/index.md
