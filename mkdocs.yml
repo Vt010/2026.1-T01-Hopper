@@ -6,11 +6,11 @@ theme:
   name: material
   language: pt
   palette:
-    primary: green
+    primary: ciano
     accent: teal
 
 nav:
   - Home: index.md
-  - Visão do Produto: documento_visao/visao.md
-  - Atas de Reunião: atas/index.md
+  - Arquitetura: arquitetura/Arquitetura.md
+  - Visão do Produto: visao/visao.md
   - Templates: templates/index.md
