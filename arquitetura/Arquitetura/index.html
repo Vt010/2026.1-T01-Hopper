@@ -1,0 +1,785 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Sistema de gestão de agendamentos para clínicas de fisioterapia">
+      
+      
+        <meta name="author" content="Grupo Hopper — FGA0138">
+      
+      
+      
+        <link rel="prev" href="../..">
+      
+      
+        <link rel="next" href="../../visao/visao/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Arquitetura - UnBemEstar</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="cyan" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href="../.." title="UnBemEstar" class="md-header__button md-logo" aria-label="UnBemEstar" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            UnBemEstar
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Arquitetura
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Pesquisar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando a pesquisa
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="UnBemEstar" class="md-nav__button md-logo" aria-label="UnBemEstar" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    UnBemEstar
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arquitetura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../visao/visao/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visão do Produto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../templates/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Templates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Arquitetura</h1>
+
+<p>UnBemEstar </p>
+<p><strong>Documento de Arquitetura</strong> </p>
+<p>Versão 0.9 </p>
+<p><strong>Tabela -  Integrantes do Grupo</strong> </p>
+<table>
+<thead>
+<tr>
+<th><strong>Matrícula</strong></th>
+<th><strong>Nome</strong></th>
+<th style="text-align: left;"><strong>Função (responsabilidade)</strong></th>
+<th style="text-align: left;"><strong>Pontos de participação na elaboração</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>241025720</td>
+<td>Vitor Eduardo Araújo</td>
+<td style="text-align: left;">Líder, Documentação e Scrum Master</td>
+<td style="text-align: left;">10</td>
+</tr>
+<tr>
+<td>242028815</td>
+<td>Breno Elias de Carvalho Correia</td>
+<td style="text-align: left;">Arquitetura e DevOps</td>
+<td style="text-align: left;">10</td>
+</tr>
+<tr>
+<td>241038791</td>
+<td>Flavia de Melo Rebelato</td>
+<td style="text-align: left;">Product Owner</td>
+<td style="text-align: left;">10</td>
+</tr>
+<tr>
+<td>241012098</td>
+<td>Brenda Maria Cavalcante Chaves</td>
+<td style="text-align: left;">Desenvolvedor Front-End</td>
+<td style="text-align: left;">10</td>
+</tr>
+<tr>
+<td>251016045</td>
+<td>Thiago da Silva Borges</td>
+<td style="text-align: left;">Desenvolvedor Back-End</td>
+<td style="text-align: left;">10</td>
+</tr>
+<tr>
+<td>241025784</td>
+<td>João Paulo da Silva Pereira</td>
+<td style="text-align: left;">Documentação e Requisitos</td>
+<td style="text-align: left;">10</td>
+</tr>
+<tr>
+<td>241025819</td>
+<td>Pablo Antonio Martins de Sousa</td>
+<td style="text-align: left;">Arquitetura e DevOps</td>
+<td style="text-align: left;">10</td>
+</tr>
+<tr>
+<td>241041204</td>
+<td>PEDRO VICTOR TEIXEIRA SILVA</td>
+<td style="text-align: left;">Desenvolvedor Back-End</td>
+<td style="text-align: left;">10</td>
+</tr>
+<tr>
+<td>231011023</td>
+<td>Alexandre Vilar Valadares Fonsêca</td>
+<td style="text-align: left;">Desenvolvedor Front-End</td>
+<td style="text-align: left;">10</td>
+</tr>
+<tr>
+<td>222006866</td>
+<td>João Vitor Tavares de Sá Lima</td>
+<td style="text-align: left;">Arquitetura e DevOps</td>
+<td style="text-align: left;">10</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Histórico de Revisões</strong> </p>
+<table>
+<thead>
+<tr>
+<th>Data</th>
+<th>Versão</th>
+<th>Descrição</th>
+<th>Autor(es)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>06/05/2026</td>
+<td>0.5</td>
+<td>Primeira  reunião  do  grupo, finalizando o documento de visão e iniciando o documento de arquitetura</td>
+<td>Grupo completo</td>
+</tr>
+<tr>
+<td><code></code>13/05/2026</td>
+<td>0.7</td>
+<td>Revisão do documento e ajustes finais para a última versão.</td>
+<td>Thiago, Pablo Antônio</td>
+</tr>
+<tr>
+<td>15/05/2026</td>
+<td>0.9</td>
+<td>Revisão final e Formatação.</td>
+<td>Vitor  Araújo,  Brenda Chave</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Sumário</strong> </p>
+<p><a href="#_page3_x69.00_y72.75"><strong><em>1  Introdução........................................................................................................................................................3</em></strong> </a></p>
+<ol>
+<li><a href="#_page3_x69.00_y99.75"><strong>Propósito ....................................................................................................................... 4</strong> </a></li>
+<li><a href="#_page3_x69.00_y334.75"><strong>Escopo ........................................................................................................................... 4</strong> </a></li>
+</ol>
+<p><a href="#_page3_x69.00_y509.75"><strong><em>2  Representação Arquitetural ............................................................................................................................4</em></strong> </a></p>
+<ol>
+<li><a href="#_page3_x69.00_y578.75"><strong>Definições ...................................................................................................................... 4</strong> </a></li>
+<li><a href="#_page3_x69.00_y735.75"><strong>Justificativa da Escolha. .............................................................................................. 4</strong> </a></li>
+<li><a href="#_page8_x69.00_y180.75"><strong>Metas e restrições arquiteturais ................................................................................. 9</strong> </a></li>
+</ol>
+<p><a href="#_page8_x69.00_y208.75"><strong>As metas e restrições a seguir orientam as decisões arquiteturais e o desenvolvimento do UnBemEstar, derivando dos requisitos não funcionais definidos no Documento de Visão (seção 4.4) e de boas práticas adotadas pela equipe. .............................................. 9</strong> </a></p>
+<ol>
+<li><a href="#_page8_x69.00_y740.75"><strong>Visões............................................................................................................................. 9</strong> </a></li>
+<li><a href="#_page9_x69.00_y154.75">Visão de uso ......................................................................................................... 10 </a></li>
+<li><a href="#_page11_x69.00_y671.75">Visão de organização lógica ................................................................................ 12 </a></li>
+<li><a href="#_page12_x108.00_y509.75">Visão Estrutural ................................................................................................... 13 </a><a href="#_page12_x69.00_y532.75">A composição do UnBemEstar e as relações entre suas partes baseiam-se em componentes distribuídos para atender aos requisitos operacionais e escalar com facilidade:......................................................................................................................... 13 </a></li>
+<li><a href="#_page15_x69.00_y359.75"><strong>Visão de Implantação ................................................................................................ 16</strong> </a></li>
+<li><a href="#_page17_x69.00_y268.75"><strong>Restrições adicionais .................................................................................................. 18</strong> </a></li>
+<li><a href="#_page17_x69.00_y347.75">Restrições Negociais e de Contexto de Uso ........................................................ 18 </a></li>
+<li><a href="#_page17_x69.00_y563.75">Restrições de Qualidade de Software .................................................................. 18 </a></li>
+<li><a href="#_page18_x69.00_y192.75">Restrições de Segurança e Permissões de Acesso ............................................... 19 </a></li>
+</ol>
+<p><a href="#_page19_x69.00_y341.75"><strong><em>3  Bibliografia .................................................................................................................................................... 20</em></strong> </a></p>
+<p><a name="_page3_x69.00_y72.75"></a><strong>1  Introdução</strong> </p>
+<ol>
+<li><strong>Propósito<a name="_page3_x69.00_y99.75"></a></strong> </li>
+</ol>
+<p>O  presente  documento  tem  como  próposito  descrever  a  arquitetura  de  software  do sistema  UnBemEstar,  desenvolvido  como  projeto  acadêmico  da  disciplina  Metodos  de Desenvolvimento de Software 2026.1, no curso de Engenharia de Software da UNB. Este documento tem como função central registrar as decisões arquiteturais tomadas durante o planejamento  e  a  implementação  do  sistema,  incluindo  a  definição  do  estilo  arquitetural adotado,  a  organização  dos  módulos,  as  tecnologias  envolvidas  e  as  restrições  técnincas aplicáveis. O conteúdo aqui apresentado servirá como guia para a equipe de desenvolvimento, facilitando a comunicação entre os membros do grupo, manutenção do código e evolução futura do produto. </p>
+<p>Adicionalmente,  este  documento  busca  assegurar  que  as  decisões  técnicas  estejam alinhadas com os objetivos funcionais e de qualidade do projeto, especialmente no que se refere à proteção dos dados pessoais e clínicos dos usuários em conformidade com a LGPD, à usabilidade da interface para públicos de diferentes faixas etárias e níveis de familiaridade com tecnologia, e à automação dos fluxos de atendimento em clínicas de fisioterapia </p>
+<ol>
+<li><strong>Escopo<a name="_page3_x69.00_y334.75"></a></strong> </li>
+</ol>
+<p>A UnBemEstar é uma plataforma web de gestão e automação de agendamento voltada para clínicas de fisioterapia, cujo objetivo é centralizar o controle operacional e eliminar a dependência de processos manuais conduzidos por rede sociais e aplicativos de mensagem. O sistema  contempla  quatro  perfis  de  usuário:  paciente,  secretária,  fisioterapeuta/médico  e administrador,  e  oferece  funcionalidades  como  autenticação,  calendário  interativo, agendamento autônomo de consultas presenciais e domiciliares, lembretes automáticos por e- mail  e indicação de retorno pelo fisioterapeuta ao final do atendimento. O detalhamento completo dos requisitos funcionais e não funcionais, dos perfis de acesso e dos cenários de uso encontra-se no Documento de Visão de Produto e Projeto, seção 4.  </p>
+<p><a name="_page3_x69.00_y509.75"></a><strong>2  Representação Arquitetural</strong> </p>
+<p>Este capítulo descreve a arquitetura de software do UnBemEstar, detalhando o estilo arquitetural adotado, seus componentes e as decisões que guiaram sua escolha. </p>
+<ol>
+<li><strong>Definições<a name="_page3_x69.00_y578.75"></a></strong> </li>
+</ol>
+<p>O sistema UnBemEstar seguirá uma arquitetura em camadas, implantada sob a forma de monólito  modular  com  execução  serverless.  A  arquitetura  é  composta  pelas  camadas  de apresentação, aplicação (API), serviços de negócio, acesso a dados e persistência, integradas a serviços externos especializados para envio de e-mails transacionais (Resend) e execução de tarefas agendadas (Vercel Cron Jobs). </p>
+<ol>
+<li><strong>Justificativa<a name="_page3_x69.00_y735.75"></a> da Escolha.</strong>  </li>
+</ol>
+<p>A escolha arquitetural fundamenta-se nas características do produto e do projeto descritas no documento de visão. A arquitetura em camadas atende à necessidade de separação clara de responsabilidades entre apresentação, regras de negócio e persistência, característica fundamental dada a coexistência de quatro perfis de usuário com permissões distintas, e favorece a manutenibilidade do código e a aplicação das práticas de Extreme Programming adotadas pela equipe (seção 3 do Documento de Visão). A opção por um monólito modular, em detrimento de microsserviços, vem do escopo controlado do produto, do prazo semestral e da composição da equipe (dez integrantes). Uma arquitetura distribuída introduziria complexidade operacional incompatível com o contexto e elevaria os riscos mapeados na seção 2.5 do Documento de Visão. A execução Serverless, viabilizada pelo deploy na Vercel, adere nativamente ao framework Next.js e atende aos requisitos de pipeline de entrega contínua (RNF05). A natureza das funções serverless contribui para o cumprimento do requisito de desempenho (RNF04). A integração com o Supabase, que concentra banco de dados, autenticação e armazenamento em uma única plataforma gerenciada, reduz a quantidade de componentes de infraestrutura sob responsabilidade da equipe </p>
+<ol>
+<li><strong>Detalhamento</strong> </li>
+</ol>
+<p>A escolha pela arquitetura em camadas com monólito modular serverless é detalhada a seguir por meio de uma figura esquemática, que evidencia os componentes, interfaces e conectores do sistema UnBemEstar. </p>
+<ol>
+<li><strong>Figura Esquemática da Arquitetura</strong> </li>
+</ol>
+<p>A Figura 1 detalha o estilo arquitetural em camadas adotado, evidenciando a separação de responsabilidades, os componentes principais, suas interfaces e os conectores que viabilizam a comunicação. </p>
+<p><strong>Figura 1 - Esquema da Arquitetura em Camadas do UnBemEstar</strong> </p>
+<p><strong>Fonte:</strong> Elaborado por Brenda Maria Cavalcante Chaves (2026). <img alt="atividades" src="/assets/assets_arquitetura/atividades.png" /></p>
+<p><strong>Descrição da Figura 1:</strong> A arquitetura é organizada em cinco camadas verticais: Apresentação, Aplicação (API), Serviços de Negócio, Acesso a Dados e Persistência. As setas indicam o fluxo de requisição (descendente) e resposta (ascendente). A camada de Persistência se conecta a serviços externos gerenciados (Supabase, Resend, Vercel Cron Jobs). Os conectores principais são: HTTP/HTTPS (entre Apresentação e Aplicação), Chamada Direta de Função (entre Aplicação, Negócio e Acesso a Dados) e Cliente TCP/TLS (entre Acesso a Dados e Persistência). </p>
+<p><strong>Figura 2</strong> - Diagrama Arquitetural MVC com Detalhamento Tecnológico </p>
+<p><img alt="mvc" src="/assets/assets_arquitetura/mvc.jpeg" /></p>
+<p><strong>Fonte:</strong> Elaborado por  (2026). </p>
+<p>Complementando a visão em camadas apresentada na Figura 1, a Figura 2 detalha a arquitetura do UnBemEstar sob a perspectiva do padrão MVC (Model-View-Controller), evidenciando os componentes tecnológicos específicos adotados em cada camada. </p>
+<p>A figura organiza a arquitetura em quatro blocos principais: </p>
+<ul>
+<li><strong>View (Next.js App Router):</strong> Responsável pela interface com o usuário, incluindo telas de login, calendário, área do paciente e painel administrativo. Utiliza TailwindCSS, componentes React Server e Client. </li>
+<li><strong>Controller (API Routes TypeScript):</strong> Gerencia as regras de negócio, validação (Zod) e controle de acesso (RBAC com Supabase Auth). Inclui os serviços de agendamento (reserva de 5 minutos, cancelamento) e integração com Vercel Cron + Resend para lembretes. </li>
+<li><strong>Model (Entidades e Domínio):</strong> Define as entidades de dados (Paciente, Consulta, Fisioterapeuta, Documentos, Horário) com suas interfaces TypeScript e cliente Supabase. </li>
+<li><strong>Infraestrutura:</strong> Camada base que sustenta o sistema, incluindo Vercel (deploy/hosting), GitHub Actions (CI/CD) e Supabase (banco de dados, storage e autenticação). </li>
+<li><strong>Instanciação dos Elementos Arquiteturais</strong> </li>
+</ul>
+<p>Aplicando o estilo de camadas ao contexto do UnBemEstar, tem-se a seguinte instanciação concreta: </p>
+<ul>
+<li><strong>Camada de Apresentação (Front-end):</strong> Composta por páginas (app/dashboard/, app/schedule/), componentes React (Calendar.tsx, PatientForm.tsx) e hooks customizados (useAuth, useAppointments). Suas interfaces são as props de componentes React e chamadas assíncronas para os hooks que consomem a API. Os conectores utilizam Fetch API ou Axios (HTTP/HTTPS) para consumir as rotas da API Next.js. </li>
+<li><strong>Camada de Aplicação (API Routes):</strong> Materializada nos arquivos de rota em pages/api/auth/[...nextauth].ts, pages/api/appointments/book.ts e pages/api/patients/upload-document.ts. As interfaces são requisições HTTP (método, headers, body validado via Zod) e respostas JSON padronizadas (ex: { success: true, data: ... } ou { error: ... }). Os conectores realizam chamadas diretas de funções TypeScript para os Services na camada de negócio. </li>
+<li><strong>Camada de Serviços de Negócio:</strong> Implementada por classes ou módulos como SchedulingService (lógica de reserva de 5 min), NotificationService (integração com Resend) e AuthService (gerenciamento de perfis). As interfaces são métodos públicos como bookAppointment(data: BookingDTO): Promise<Appointment> ou sendReminder(appointmentId: string): Promise<void>. Os conectores realizam chamadas para os Repositories na camada de acesso a dados. </li>
+<li><strong>Camada de Acesso a Dados:</strong> Composta pelos repositórios AppointmentRepository e pelo cliente Singleton do Supabase (getSupabaseClient). As interfaces são métodos como create(data): Promise<Appointment> e findOverlapping(params): </li>
+</ul>
+<p>Promise<boolean>, utilizando tipos gerados a partir do esquema do banco. Os conectores utilizam o SDK do Supabase (que gerencia a conexão TCP/TLS com o PostgreSQL e Storage). </p>
+<ul>
+<li><strong>Camada de Persistência (Serviços Externos):</strong> Constituída pelo Banco de Dados Supabase (PostgreSQL), Storage Supabase (para documentos e fotos), API do Resend e Vercel Cron Jobs. As interfaces são conexões via string de conexão (banco) ou chaves de API (Resend, Storage, Cron), seguindo contratos RESTful ou específicos do provedor. </li>
+<li><strong>Responsabilidades, Justificativas e Regras de Uso</strong> </li>
+<li><strong>Camada de Apresentação:</strong> Existe para isolar a lógica de interface do usuário (UI/UX) do restante do sistema, permitindo evoluir a aparência sem afetar as regras de negócio, justificando-se pelos requisitos de usabilidade para diferentes faixas etárias (RNF02). Seu papel é renderizar a UI, capturar entradas do usuário, exibir dados e feedback, e traduzir ações do usuário em chamadas de API. Como regras de uso, deve se comunicar apenas com a Camada de Aplicação via HTTP, não podendo conter lógica de negócio. Sua entrada esperada são cliques e dados inseridos pelo usuário, e sua saída produzida são requisições HTTP para a API. </li>
+<li><strong>Camada de Aplicação (API Routes):</strong> Atua como um ponto de entrada único e seguro para o front-end, centralizando a validação inicial (Zod), autenticação (JWT) e autorização (perfis), alinhando-se à meta de segurança e LGPD (RNF01). Seu papel é receber requisições, autenticar o usuário, validar os dados de entrada, orquestrar a chamada aos Services de negócio apropriados e formatar a resposta HTTP. Cada rota deve validar o body/query com um schema Zod e verificar a sessão do usuário via Supabase Auth. A entrada esperada é uma requisição HTTP com headers (Authorization: Bearer ) e body JSON; a saída é uma resposta HTTP JSON padronizada. Para funcionar, requer as chaves de ambiente do Supabase e do Resend. </li>
+<li><strong>Camada de Serviços de Negócio:</strong> É o coração do sistema, encapsulando as regras de negócio mais importantes, como a lógica de "reserva temporária de 5 minutos" (RF16) e o cálculo de ocupação da agenda. Isolar essa lógica facilita testes e manutenção. Seu papel é implementar a lógica específica do domínio de fisioterapia/agendamento e orquestrar operações complexas que envolvem múltiplos repositórios. Não deve conhecer detalhes de HTTP ou da UI. A entrada esperada são dados de domínio validados semanticamente; a saída são resultados de operações (entidades, booleanos, listas) ou erros de regra de negócio. </li>
+<li><strong>Camada de Acesso a Dados (Repositórios):</strong> Abstrai a complexidade e a tecnologia específica de persistência (Supabase/PostgreSQL), permitindo que o serviço de negócio não precise saber SQL ou os detalhes do cliente Supabase. Seu papel é executar operações CRUD e consultas específicas no banco e no storage. Cada repositório é responsável por uma entidade principal e deve usar o cliente Supabase injetado. A entrada esperada são filtros, IDs ou objetos parciais; a saída são entidades completas ou listas. Para funcionar, requer as variáveis de ambiente SUPABASE_URL e SUPABASE_ANON_KEY. </li>
+<li><strong>Camada de Persistência (Serviços Externos):</strong> Delega a responsabilidade de armazenamento durável, gerenciamento de e-mails e tarefas agendadas a plataformas especializadas e gerenciadas, reduzindo a carga operacional da equipe. Seu papel é fornecer armazenamento ACID para dados do sistema (PostgreSQL), armazenamento de arquivos (Storage), envio confiável de e-mails transacionais (Resend) e execução de rotinas temporizadas (Cron Jobs). São acessados exclusivamente pela Camada de Acesso a Dados ou pelos Cron Jobs. Para funcionar, necessitam de credenciais de serviço (Service Role Key, API Keys) e conectividade de rede externa. </li>
+<li><strong>Metas<a name="_page8_x69.00_y180.75"></a> e restrições arquiteturais</strong> </li>
+</ul>
+<p><a name="_page8_x69.00_y208.75"></a>As metas e restrições a seguir orientam as decisões arquiteturais e o desenvolvimento do UnBemEstar, derivando dos requisitos não funcionais definidos no Documento de Visão (seção 4.4) e de boas práticas adotadas pela equipe.** </p>
+<p><strong>Metas de qualidade</strong> </p>
+<ul>
+<li><strong>Desempenho:</strong>  tempo  de  resposta  inferior  a  3  segundos  nas  operações  principais (RNF04). </li>
+<li><strong>Disponibilidade:</strong>  acesso  pelos  principais  navegadores  web  em  versões  recentes (RNF03). </li>
+<li><strong>Segurança e LGPD:</strong> autenticação com hash criptográfico, controle de acesso por Row Level Security (RLS) no Supabase e tráfego exclusivamente por HTTPS (RNF01). </li>
+<li><strong>Cobertura  de  testes:</strong>  cobertura  dos  fluxos  críticos  (cadastro,  autenticação, agendamento e cancelamento), verificáveis pelos critérios de aceite de cada RF. </li>
+</ul>
+<p><strong>Restrições tecnológicas</strong> </p>
+<ul>
+<li>Front-end e back-end em <strong>TypeScript</strong> sobre <strong>Next.js</strong>. </li>
+<li>Persistência exclusivamente via <strong>Supabase (PostgreSQL gerenciado)</strong>. </li>
+<li>Envio de e-mails via <strong>Resend</strong> e tarefas agendadas via <strong>Vercel Cron Jobs</strong>. </li>
+<li>Deploy exclusivamente na <strong>Vercel</strong>, com pipeline CI/CD acoplada ao GitHub (RNF05). </li>
+</ul>
+<p><strong>Padrões de código e API</strong> </p>
+<ul>
+<li>TypeScript em modo estrito; ESLint e Prettier com execução obrigatória em pré- commit e CI. </li>
+<li>Validação de entrada em todas as rotas via <strong>Zod</strong>. </li>
+<li>Rotas REST com uso semântico de verbos HTTP e respostas JSON padronizadas. </li>
+<li>Endpoints sensíveis exigem autenticação via Supabase Auth; rotas críticas protegidas por <em>rate limiting</em>. </li>
+</ul>
+<p><strong>Versionamento</strong> </p>
+<ul>
+<li>Política <strong>GitFlow simplificado</strong> (main, develop, feature/*, hotfix/*). </li>
+<li>Mensagens de commit no padrão <strong>Conventional Commits</strong>. </li>
+<li>Integração somente via Pull Request com revisão de pelo menos um par e CI aprovada. </li>
+<li><strong>Visões<a name="_page8_x69.00_y740.75"></a></strong> </li>
+</ul>
+<p>Esta seção apresenta o sistema UnBemEstar sob diferentes perspectivas arquiteturais, cada uma destinada a um público específico e a um conjunto particular de preocupações. As visões estão organizadas conforme o padrão IEEE 1471-2000, que define uma visão como uma representação do sistema a partir da perspectiva de um conjunto relacionado de preocupações. </p>
+<ol>
+<li><strong>Visão<a name="_page9_x69.00_y154.75"></a> de uso</strong> </li>
+</ol>
+<p>O sistema UnBemEstar consiste em uma plataforma web dedicada à automação e gestão de clínicas de fisioterapia. Seu escopo resume-se em centralizar a jornada do paciente desde o agendamento autônomo com reserva temporária de horários até o acompanhamento do histórico de consultas, oferecendo aos gestores ferramentas para maximizar a ocupação da agenda. </p>
+<p>A escolha pelo estilo arquitetural <strong>Cliente-Servidor</strong> com foco em <strong>BaaS</strong> (Backend as a Service) foi guiada por requisitos críticos identificados na visão do produto: </p>
+<ul>
+<li><strong>Desempenho (RNF04):</strong> A necessidade de resposta em menos de 3 segundos exige uma stack eficiente como Next.js.  </li>
+<li><strong>Segurança e LGPD (RNF01):</strong> O tratamento de dados sensíveis de saúde demanda uma infraestrutura de persistência robusta e segura, como o Supabase.  </li>
+<li><strong>Agilidade e Entrega Contínua:</strong> A estrutura modular facilita as práticas de <em>Extreme Programming</em> (XP) adotadas pela equipe, permitindo deploys frequentes via Vercel.  </li>
+</ul>
+<p><strong>Justificativa adicional baseada na experiência da equipe:</strong> A escolha das tecnologias também  se  justifica  pelo  conhecimento  prévio  dos  membros  da  equipe.  Parte  dos desenvolvedores já possuía experiência com React.js e TypeScript em projetos anteriores, o que acelera o ciclo de desenvolvimento e reduz a curva de aprendizado. Adicionalmente, dois integrantes já haviam utilizado o Supabase em projetos acadêmicos, trazendo familiaridade com  suas  funcionalidades  de  autenticação,  Row  Level  Security  (RLS)  e  integração  com Next.js. A Vercel, por sua vez, foi selecionada por sua simplicidade de deploy e integração nativa com o framework, além de já ser conhecida por parte da equipe. Esse conhecimento prévio permitiu à equipe focar esforços nas regras de negócio e nas funcionalidades centrais do sistema, em vez de perder tempo com configurações complexas de infraestrutura. </p>
+<p><strong>Figura 3 -</strong> Diagrama de Casos de Uso </p>
+<p>O diagrama apresenta os atores do sistema (Paciente, Secretária, Fisioterapeuta, Administrador) e os principais casos de uso associados a cada perfil, incluindo agendamento, cancelamento, registro de evolução e geração de relatórios. </p>
+<p><img alt="Usercase" src="/assets/assets_arquitetura/Usercase.jpeg" /></p>
+<p><strong>Font</strong>e: Elaborado por Breno Elias (2026) </p>
+<p><strong>Figura 4 –</strong> Diagrama de Atividades </p>
+<p>O diagrama ilustra o fluxo da funcionalidade mais complexa do sistema: o agendamento de consulta com reserva temporária de 5 minutos (RF16). O fluxo contempla autenticação, seleção de horário, criação de reserva, confirmação com validação de dados, persistência no Supabase, envio de e-mail via Resend e agendamento de lembrete via Vercel Cron Job, além do tratamento de timeout e cancelamento da reserva. </p>
+<p><img alt="atividades" src="/assets/assets_arquitetura/atividades.png" /></p>
+<p><strong>Fonte:</strong> Elaborado por Brenda Maria Cavalcante Chaves (2026). </p>
+<ol>
+<li><strong>Visão<a name="_page11_x69.00_y671.75"></a> de organização lógica</strong> </li>
+</ol>
+<p>O software é organizado em módulos independentes que se comunicam para garantir a fluidez do sistema. A comunicação entre o front-end e o back-end ocorre via requisições <strong>HTTP RESTful</strong>, utilizando <strong>JSON</strong> como formato de troca de dados e o cliente nativo do Supabase para operações de banco. </p>
+<p>A subdivisão lógica compreende: </p>
+<ol>
+<li><strong>Módulo de Autenticação e Perfis:</strong> Controla o acesso seguro de Pacientes, Secretárias, Médicos e Administradores.  </li>
+</ol>
+<p><strong>Razão Lógica:</strong> Garantir a privacidade dos dados e que cada ator acesse apenas suas funcionalidades permitidas.  </p>
+<ol>
+<li><strong>Módulo de Agendamento (Core):</strong> Gerencia o calendário interativo e a regra de reserva temporária de 5 minutos (RF16).  </li>
+</ol>
+<p><strong>Razão Lógica:</strong> Evitar o choque de horários (overbooking) e automatizar a ocupação de lacunas na agenda.  </p>
+<ol>
+<li><strong>Módulo de Retorno:</strong> Lida com a indicação de retorno pelo fisioterapeuta ao final do atendimento (RF10). </li>
+</ol>
+<p><strong>Razão  Lógica:</strong>  Facilitar  a  continuidade  dos  agendamentos  sem  armazenar  dados clínicos sensíveis. </p>
+<ol>
+<li><strong>Módulo  de  Notificação:</strong>  Integra-se  ao  serviço  Resend  para  envio  de  lembretes automáticos (RF07).  </li>
+</ol>
+<p><strong>Razão Lógica:</strong> Reduzir as taxas de absenteísmo através de avisos prévios de 24 horas. </p>
+<p><strong>Figura 5 –</strong> Diagrama de Pacotes  </p>
+<p><img alt="pacotes" src="/assets/assets_arquitetura/pacotes.jpeg" /></p>
+<p><strong>Font</strong>e: Elaborado por Breno Elias (2026) </p>
+<ol>
+<li><strong>Visão<a name="_page12_x108.00_y509.75"></a> Estrutural</strong> </li>
+</ol>
+<p><a name="_page12_x69.00_y532.75"></a>A composição do UnBemEstar e as relações entre suas partes baseiam-se em componentes distribuídos para atender aos requisitos operacionais e escalar com facilidade: </p>
+<ul>
+<li><strong>Client  (Navegador  Web):</strong>  Onde  a  interface  construída  em  React.js  renderiza  a aplicação. Sua responsabilidade é lidar com as interações visuais, apresentar dados de forma responsiva e fazer as requisições HTTP para a camada de aplicação.  </li>
+<li><strong>Controlador/API (Next.js API Routes):</strong> Intermediário construído em TypeScript. Recebe requisições, valida dados de formulários utilizando a biblioteca Zod e aplica as regras de negócio antes de conversar com o banco de dados.  </li>
+<li><strong>Persistência  (Supabase):</strong>  Serviço  que  atua  como  o  Banco  de  Dados  relacional PostgreSQL gerenciado. Tem a responsabilidade de guardar com segurança todas as tabelas (pacientes, horários, configurações). A conexão é estabelecida utilizando o cliente nativo do Supabase no ambiente das rotas de API.  </li>
+<li><strong>Interfaces  de  Terceiros:</strong>  Ferramentas  adicionais  conectadas  ao  <em>back-end</em>,  com responsabilidades específicas: <em>Resend</em> (exclusivo para gerenciar o envio das mensagens de e-mail de confirmação e alerta) e <em>Vercel Cron</em> (para engatilhar rotinas baseadas em tempo). </li>
+</ul>
+<p><strong>Figura 6 -</strong> Diagrama de Classes  </p>
+<p>O diagrama apresenta as principais entidades do sistema (Usuário, Paciente, Secretária, Fisioterapeuta, Administrador, Consulta, Agenda, Retorno), seus atributos, métodos e relacionamentos. A classe abstrata  Usuario  é especializada nos quatro perfis de acesso. </p>
+<p><img alt="classes" src="/assets/assets_arquitetura/classes.png" /></p>
+<p><strong>Fonte:</strong> Elaborado por Brenda Maria Cavalcante Chaves (2026). </p>
+<p><strong>Figura 7 -</strong> Diagrama de Componentes  </p>
+<p>O diagrama organiza os componentes do sistema nas camadas de Apresentação \
+(React), Aplicação (API Routes Next.js), Serviços de Negócio, Acesso a Dados (Repositories + Supabase Client) e Infraestrutura Externa (Supabase, Resend, Vercel). As setas indicam as dependências e os protocolos de comunicação. </p>
+<p><img alt="componente" src="/assets/assets_arquitetura/componentes.png" /></p>
+<p><strong>Fonte:</strong> Elaborado por Brenda Maria Cavalcante Chaves (2026). </p>
+<ol>
+<li><strong>Visão<a name="_page15_x69.00_y359.75"></a> de Implantação</strong>  </li>
+</ol>
+<p>O software UnBemEstar será implantado em uma infraestrutura totalmente baseada em nuvem, eliminando a necessidade de servidores físicos dedicados ou gerenciamento manual de infraestrutura. Essa escolha se justifica pela natureza do projeto: equipe acadêmica reduzida, prazo semestral e necessidade de entregas incrementais, além de estar alinhada com as decisões tecnológicas definidas no Documento de Visão. </p>
+<p><strong>Infraestrutura de hardware (nós de implantação):</strong> A aplicação não depende de servidores físicos próprios. Os nós de processamento são providos pelos serviços gerenciados descritos a seguir. O dispositivo do usuário final (PC ou smartphone) atua como cliente leve, executando apenas o navegador web e recebendo as páginas renderizadas pelo servidor. </p>
+<p><strong>Tecnologias de implantação:</strong> </p>
+<ol>
+<li><strong>Vercel (PaaS — Plataforma de Hospedagem e Deploy):</strong> A aplicação Next.js é hospedada na Vercel, plataforma especializada em frameworks baseados em React. A Vercel provê provisionamento automático de infraestrutura serverless, distribuição global via CDN (Content Delivery Network) e Edge Middleware, garantindo baixa latência para usuários no Brasil. A justificativa para sua escolha é direta: a integração nativa com GitHub Actions permite pipeline de CI/CD (Integração e Entrega Contínua) totalmente automatizado, de modo que a cada push na branch principal um novo deploy é acionado automaticamente, o que está alinhado com a prática de Integração Contínua do XP adotada pela equipe (Seção 3.2 do Documento de Visão). Além disso, a Vercel Cron executa os jobs agendados responsáveis pelo disparo dos lembretes automáticos de consulta via e-mail (RF07). </li>
+<li><strong>Next.js com TypeScript (Framework Full-Stack):</strong> O front-end e as rotas de back- end são implementados em um único projeto Next.js (TypeScript), conforme definido no Documento de Visão (Seção 1.6). O Next.js suporta Server-Side Rendering (SSR) </li>
+</ol>
+<p>e API Routes, permitindo que o mesmo servidor responda tanto pelas páginas HTML quanto pelas chamadas de API REST, simplificando a arquitetura de deploy. A validação de dados de entrada é realizada pela biblioteca Zod, garantindo type safety em toda a camada de comunicação cliente e servidor. </p>
+<ol>
+<li><strong>Resend (Serviço de E-mail Transacional):</strong> O envio de e-mails transacionais (confirmações de agendamento e lembretes automáticos) é delegado ao serviço Resend, consumido via API REST pelos Cron Jobs da Vercel. Essa separação de responsabilidades garante alta entregabilidade dos e-mails sem sobrecarregar a aplicação principal. </li>
+</ol>
+<p><strong>Banco de dados:</strong> O sistema utiliza o <strong>Supabase</strong> como plataforma BaaS (Backend as a Service), que provê um banco de dados <strong>PostgreSQL gerenciado</strong>, serviço de autenticação (Auth Service com JWT) e armazenamento de arquivos (Storage Service). A escolha do Supabase se justifica por três razões principais: (i) elimina a necessidade de provisionamento e manutenção de servidor de banco de dados, reduzindo a carga operacional da equipe; (ii) o PostgreSQL é um sistema de gerenciamento de banco de dados relacional robusto, maduro e adequado ao domínio clínico do projeto, com suporte nativo a transações ACID essenciais para garantir integridade dos agendamentos; e (iii) a integração nativa com Next.js via SDK JavaScript simplifica o desenvolvimento das API Routes. O banco armazena os dados de pacientes, profissionais, agendamentos e horários. </p>
+<p><strong>Pipeline de CI/CD:</strong> O versionamento e o pipeline de entrega contínua são gerenciados pelo <strong>GitHub</strong> com <strong>GitHub Actions</strong>. A cada pull request aprovado e mergeado na branch principal, a validação funcional dos fluxos críticos é executada e, em caso de aprovação, o deploy é disparado automaticamente para a Vercel (RNF05). A documentação técnica é publicada via GitHub Pages. Essa estratégia é consistente com a prática de Integração Contínua adotada no processo ScrumXP da equipe. </p>
+<p><strong>Figura 8 –</strong> Diagrama de Implantação  </p>
+<p>O diagrama mostra a distribuição física do sistema: o cliente (navegador) acessa a aplicação hospedada na Vercel (serverless functions + CDN), que se integra ao Supabase (banco de dados PostgreSQL, storage e autenticação), ao Resend (envio de e-mails) e aos Vercel Cron Jobs (tarefas agendadas). O pipeline de CI/CD via GitHub Actions automatiza os deploys. </p>
+<p><img alt="implantacao" src="/assets/assets_arquitetura/implantacao.png" /></p>
+<p>Fonte: Elaborado por João Vitor Tavares (2026) </p>
+<ol>
+<li><strong>Restrições<a name="_page17_x69.00_y268.75"></a> adicionais</strong> </li>
+</ol>
+<p>Além das metas e restrições tecnológicas elencadas na seção 2.4, o sistema UnBemEstar deverá observar as seguintes restrições adicionais, derivadas de aspectos negociais, de qualidade e de segurança. </p>
+<ol>
+<li><strong>Restrições<a name="_page17_x69.00_y347.75"></a> Negociais e de Contexto de Uso</strong> </li>
+</ol>
+<p><strong>Acesso via Internet com Autenticação Obrigatória:</strong> O software será acessível diretamente pela Internet (Web, SaaS). No entanto, todas as funcionalidades, exceto a página inicial institucional e a tela de recuperação de senha, exigirão autenticação prévia do usuário via e-mail e senha. Esta restrição é fundamental para cumprir a LGPD e garantir que apenas perfis autorizados (paciente, secretária, fisioterapeuta, admin) acessem dados clínicos sensíveis. </p>
+<p><strong>Escalabilidade Preliminar (Cenário Alvo):</strong> O sistema será projetado e testado para suportar, em sua primeira versão, até 5 clínicas de fisioterapia de pequeno porte, totalizando uma base de dados de aproximadamente 10.000 pacientes ativos e 50 profissionais, com uma carga de até 100 agendamentos por hora nos horários de pico (manhã e início da noite). Esta restrição orienta o dimensionamento das funções serverless na Vercel e os índices no Supabase, evitando sub ou superdimensionamento. </p>
+<ol>
+<li><strong>Restrições<a name="_page17_x69.00_y563.75"></a> de Qualidade de Software</strong> </li>
+</ol>
+<p><strong>Usabilidade (Acessibilidade e Simplicidade):</strong> Conforme requisito RNF02, a interface deve atender usuários de 18 a 80+ anos com diferentes níveis de alfabetização digital. Como restrição adicional, o sistema deverá atingir nível AA das Diretrizes de Acessibilidade para Conteúdo Web (WCAG 2.1) no que tange a contraste de cores, navegação por teclado e compatibilidade com leitores de tela. A justificativa é garantir a inclusão de pacientes idosos ou com deficiência visual parcial, público comum em clínicas de fisioterapia. </p>
+<p><strong>Confiabilidade (Absenteísmo):</strong> A meta não é apenas técnica, mas de negócio. O sistema deve reduzir a taxa de faltas (no-shows) em pelo menos 30% em relação ao processo manual via WhatsApp/telefone, conforme expectativa do cliente no Documento de Visão. Para isso, a restrição técnica é que o serviço de lembrete automático (Vercel Cron + Resend) deve ter 99,9% de entregabilidade de e-mails válidos, com retentativas em caso de falha temporária. </p>
+<p><strong>Portabilidade:</strong> O sistema deve ser executável e responsivo nos navegadores Firefox (versão estável mais recente), Chrome (versão estável mais recente), Edge (versão estável mais recente) e Safari (versão estável mais recente), em suas versões de desktop e mobile (iOS e Android). A restrição de portabilidade evita o lock-in em um único ecossistema (ex: Chrome) e respeita a diversidade de dispositivos dos usuários finais. </p>
+<ol>
+<li><strong>Restrições<a name="_page18_x69.00_y192.75"></a> de Segurança e Permissões de Acesso</strong> </li>
+</ol>
+<p>A segurança é uma meta crítica (RNF01). A Tabela 1 abaixo justifica e detalha as permissões de acesso, implementadas via Row Level Security (RLS) no Supabase e middleware na aplicação Next.js. </p>
+<p><strong>Tabela 1 - Perfis de Acesso e Permissões do Sistema UnBemEstar</strong> </p>
+<table>
+<thead>
+<tr>
+<th>Perfil</th>
+<th>Responsabilidades e Justificativa**</th>
+<th style="text-align: left;">Permissões de Acesso (Restrições)**</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Paciente</strong></td>
+<td>Acessa apenas seus próprios dados. Justifica-se pela LGPD (autodeterminação informativa).</td>
+<td style="text-align: left;">CRUD apenas sobre seus próprios agendamentos, documentos e perfil. Leitura apenas dos profissionais (nome, especialidade). Bloqueado acesso a prontuários de outros pacientes.</td>
+</tr>
+<tr>
+<td><strong>Secretária</strong></td>
+<td>Gerencia a agenda e o fluxo de pacientes. Justifica-se pela necessidade operacional da clínica.</td>
+<td style="text-align: left;">CRUD sobre todos os agendamentos. Leitura de todos os pacientes e profissionais. Bloqueada a criação/edição de prontuários clínicos e a exclusão permanente de dados.</td>
+</tr>
+<tr>
+<td><strong>Fisioterapeuta/Médico</strong></td>
+<td>Acessa e registra dados clínicos (evolução). Justifica-se pela necessidade de assistência e continuidade do tratamento.</td>
+<td style="text-align: left;">CRUD sobre prontuários e evoluções apenas dos seus pacientes. Leitura da agenda de seus horários. Bloqueada a</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">alteração de dados financeiros ou de outro profissional.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Administrador</strong></td>
+<td style="text-align: left;">Mantém o sistema (cadastros, auditoria). Justifica-se pela necessidade de governança e conformidade.</td>
+<td style="text-align: left;">CRUD global sobre usuários, profissionais, configurações e auditoria. Acesso total aos logs (quem acessou o quê). Bloqueada a violação de hashes de senha (armazenadas com bcrypt).</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fonte:</strong> Elaborado por Brenda Maria C. Chaves (2026) </p>
+<p><a name="_page19_x69.00_y341.75"></a><strong>3  Bibliografia</strong> </p>
+<p>ALMEIDA, M. B.; ANDRADE, R. M. Engenharia de Software: uma abordagem prática. 4. ed. Rio de Janeiro: Elsevier, 2021. </p>
+<p>BASS, L.; CLEMENTS, P.; KAZMAN, R. Software Architecture in Practice. 3. ed. Boston: Addison-Wesley, 2013. </p>
+<p>BRASIL. Lei nº 13.709, de 14 de agosto de 2018. Lei Geral de Proteção de Dados Pessoais (LGPD). Brasília, DF: Presidência da República, 2018. Disponível em: <a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm">https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm</a>. Acesso em: 13 maio 2026. </p>
+<p>FIELDING, R. T. Architectural Styles and the Design of Network-based Software Architectures. 2000. Tese (Doutorado em Ciência da Computação) – University of California, Irvine, 2000. </p>
+<p>GAMMA, E.; HELM, R.; JOHNSON, R.; VLISSIDES, J. Padrões de Projeto: Soluções reutilizáveis de software orientado a objetos. Porto Alegre: Bookman, 2000. </p>
+<p>MARTIN, R. C. Arquitetura Limpa: O guia do artesão para estrutura e design de software. Rio de Janeiro: Alta Books, 2019. </p>
+<p>PRESSMAN, R. S.; MAXIM, B. R. Engenharia de Software: uma abordagem profissional. 9. ed. Porto Alegre: AMGH, 2021. </p>
+<p>SUPABASE. Supabase Documentation. 2026. Disponível em:<a href="https://supabase.com/docs"> https://supabase.com/docs. </a>Acesso em: 13 maio 2026. </p>
+<p>VERCEL. Vercel Documentation: Cron Jobs and Serverless Functions. 2026. Disponível em: <a href="https://vercel.com/docs/cron-jobs">https://vercel.com/docs/cron-jobs</a>. Acesso em: 13 maio 2026. 
+21</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
