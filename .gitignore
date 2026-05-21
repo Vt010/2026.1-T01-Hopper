@@ -45,7 +45,6 @@ __pycache__/
 # Distribution & Builds (Front & Back)
 dist/
 build/
-
 # Testing coverage
 coverage/
 
@@ -61,7 +60,6 @@ uploads/
 # =========================
 # 🔐 Environment & Secrets
 # =========================
-.env
 .env
 *.pem
 
