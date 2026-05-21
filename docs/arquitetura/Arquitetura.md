@@ -92,13 +92,13 @@ A Figura 1 detalha o estilo arquitetural em camadas adotado, evidenciando a sepa
 
 **Figura 1 - Esquema da Arquitetura em Camadas do UnBemEstar** 
 
-**Fonte:** Elaborado por Brenda Maria Cavalcante Chaves (2026). ![atividades](/assets/atividades.png)
+**Fonte:** Elaborado por Brenda Maria Cavalcante Chaves (2026). ![atividades](/assets/assets_arquitetura/atividades.png)
 
 **Descrição da Figura 1:** A arquitetura é organizada em cinco camadas verticais: Apresentação, Aplicação (API), Serviços de Negócio, Acesso a Dados e Persistência. As setas indicam o fluxo de requisição (descendente) e resposta (ascendente). A camada de Persistência se conecta a serviços externos gerenciados (Supabase, Resend, Vercel Cron Jobs). Os conectores principais são: HTTP/HTTPS (entre Apresentação e Aplicação), Chamada Direta de Função (entre Aplicação, Negócio e Acesso a Dados) e Cliente TCP/TLS (entre Acesso a Dados e Persistência). 
 
 **Figura 2** - Diagrama Arquitetural MVC com Detalhamento Tecnológico 
 
-![mvc](assets/assets_arquitetura/mvc.jpeg)
+![mvc](/assets/assets_arquitetura/mvc.jpeg)
 
 **Fonte:** Elaborado por  (2026). 
 
@@ -178,7 +178,7 @@ A escolha pelo estilo arquitetural **Cliente-Servidor** com foco em **BaaS** (Ba
 
 O diagrama apresenta os atores do sistema (Paciente, Secretária, Fisioterapeuta, Administrador) e os principais casos de uso associados a cada perfil, incluindo agendamento, cancelamento, registro de evolução e geração de relatórios. 
 
-![Usercase](assets/assets_arquitetura/Usercase.jpeg)
+![Usercase](/assets/assets_arquitetura/Usercase.jpeg)
 
 **Font**e: Elaborado por Breno Elias (2026) 
 
@@ -186,7 +186,7 @@ O diagrama apresenta os atores do sistema (Paciente, Secretária, Fisioterapeuta
 
 O diagrama ilustra o fluxo da funcionalidade mais complexa do sistema: o agendamento de consulta com reserva temporária de 5 minutos (RF16). O fluxo contempla autenticação, seleção de horário, criação de reserva, confirmação com validação de dados, persistência no Supabase, envio de e-mail via Resend e agendamento de lembrete via Vercel Cron Job, além do tratamento de timeout e cancelamento da reserva. 
 
-![atividades](assets/assets_arquitetura/atividades.png)
+![atividades](/assets/assets_arquitetura/atividades.png)
 
 **Fonte:** Elaborado por Brenda Maria Cavalcante Chaves (2026). 
 
@@ -214,7 +214,7 @@ A subdivisão lógica compreende:
 
 **Figura 5 –** Diagrama de Pacotes  
 
-![pacotes](assets/assets_arquitetura/pacotes.jpeg)
+![pacotes](/assets/assets_arquitetura/pacotes.jpeg)
 
 **Font**e: Elaborado por Breno Elias (2026) 
 
@@ -231,7 +231,7 @@ A subdivisão lógica compreende:
 
 O diagrama apresenta as principais entidades do sistema (Usuário, Paciente, Secretária, Fisioterapeuta, Administrador, Consulta, Agenda, Retorno), seus atributos, métodos e relacionamentos. A classe abstrata  Usuario  é especializada nos quatro perfis de acesso. 
 
-![classes](assets/assets_arquitetura/classes.png)
+![classes](/assets/assets_arquitetura/classes.png)
 
 **Fonte:** Elaborado por Brenda Maria Cavalcante Chaves (2026). 
 
@@ -240,7 +240,7 @@ O diagrama apresenta as principais entidades do sistema (Usuário, Paciente, Sec
 O diagrama organiza os componentes do sistema nas camadas de Apresentação \
 (React), Aplicação (API Routes Next.js), Serviços de Negócio, Acesso a Dados (Repositories + Supabase Client) e Infraestrutura Externa (Supabase, Resend, Vercel). As setas indicam as dependências e os protocolos de comunicação. 
 
-![componente](assets/assets_arquitetura/componentes.png)
+![componente](/assets/assets_arquitetura/componentes.png)
 
 **Fonte:** Elaborado por Brenda Maria Cavalcante Chaves (2026). 
 
@@ -267,7 +267,7 @@ O software UnBemEstar será implantado em uma infraestrutura totalmente baseada 
 
 O diagrama mostra a distribuição física do sistema: o cliente (navegador) acessa a aplicação hospedada na Vercel (serverless functions + CDN), que se integra ao Supabase (banco de dados PostgreSQL, storage e autenticação), ao Resend (envio de e-mails) e aos Vercel Cron Jobs (tarefas agendadas). O pipeline de CI/CD via GitHub Actions automatiza os deploys. 
 
-![implantacao](assets/assets_arquitetura/implantacao.png)
+![implantacao](/assets/assets_arquitetura/implantacao.png)
 
 Fonte: Elaborado por João Vitor Tavares (2026) 
 

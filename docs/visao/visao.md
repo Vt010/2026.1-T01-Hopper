@@ -28,7 +28,7 @@ Tabela - Integrantes do Grupo:
 |**Data** |**Versão** |**Descrição** |**Autor** |
 | - | - | - | - |
 |23/04/26 |0\.1 |Primeira análise do documento e aquisição dos primeiros requisistos |Vitor Araújo, Flávia Rebelato e João Paulo |
-|` `25/04/26 |0\.3 |Objetivos do produto, solução proposta e definição de tecnologias a serem ultilizadas |Vitor Araújo |
+|` `25/04/26 |0\.3 |Objetivos do produto, solução proposta e definição de tecnologias a serem ultilizadas |Grupo Completo |
 |30/04/26 |0\.6 |Backlog, criação dos perfis, planejamento, métricas, roteiro dos testes de software e referências |Vitor Araújo, João Paulo e Flávia Rebelato |
 |04/05/26 |0\.9 |Inclusão de novo membro e finalização do documento2 |Vitor Araújo, João Paulo e Flávia Rebelato |
 |05/05/26 |0\.9.5 |Métrica e medições, Teste de Software e Referências |João Paulo, Breno Elias |
@@ -96,7 +96,7 @@ A  carência  de  automação  e  de  um  controle  centralizado  acarreta  garg
 
 **Figura 1 – Ishikawa – Principais problemas identificados** 
 
-![Diagrama de Ishikawa](assets/assets_visao/Ishikawa.jpeg)
+![Ishikawa](/assets/assets_visao/Ishikawa.jpeg)
 
 Fonte: Elaborado por Flávia Rebelato (2026) 
 
@@ -176,7 +176,7 @@ A  figura  abaixo  apresenta  o  ciclo  de  vida  usando  o  framework  Scrum  a
 
 Figura 2 – Framework do ciclo de vida scrum 
 
-![Ciclo Scrum](assets/assets_visao/Scrum.jpeg)
+![Scrum](/assets/assets_visao/Scrum.jpeg)
 
 Fonte: Wrike.com, adaptado (2026) 
 
@@ -235,7 +235,7 @@ A equipe realizará uma reunião semanal, com a presença mandatória de todos o
 
 Abaixo segue a tabela da Matriz de Comunicação: 
 
-|**Descrição ![](Aspose.Words.8a9697ee-6302-43a6-bea8-de70c6565082.003.png)**|**Área/ Envolvidos** |**Periodicidade** |**Produtos Gerados ![](Aspose.Words.8a9697ee-6302-43a6-bea8-de70c6565082.004.png)**|
+|**Descrição **|**Área/ Envolvidos** |**Periodicidade** |**Produtos Gerados **|
 | - | :- | - | - |
 |Reunião geral de acompanhamento |Equipe Completa |Semanal |Ata de reunião Atualização de status |
 |Comunicação com o monitor |Scrum Master, PO |Conforme necessidade |Relatório  de  status  do projeto  e  esclarecimento de impedimentos |
@@ -273,7 +273,7 @@ A seguir apresenta-se a tabela com os riscos identificados e as estratégias ass
 
 
 
-|**Risco ![](Aspose.Words.8a9697ee-6302-43a6-bea8-de70c6565082.005.png)**|**Grau ![](Aspose.Words.8a9697ee-6302-43a6-bea8-de70c6565082.006.png)**|**Mitigação  (Plano A)** |**Contingência (Plano B)** |
+|**Risco |**Grau **|**Mitigação  (Plano A)** |**Contingência (Plano B)** |
 | - | - | :- | :- |
 
 
