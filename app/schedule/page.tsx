@@ -1,6 +1,6 @@
 "use client";
 
-import "../../src/app/globals.css";
+import "@/app/globals.css"
 import Link from "next/link";
 import Image from "next/image";
 
@@ -9,7 +9,7 @@ export default function SchedulePage() {
     <div className="flex min-h-screen w-full bg-[#F0F7F9] font-sans">
       
       {/* SIDEBAR DA ESQUERDA: Menu de Navegação Rápida */}
-      <aside className="flex w-64 flex-col bg-gradient-to-b from-[#2B7A78] to-[#17252A] p-6 text-white shrink-0">
+      <aside className="flex w-64 flex-col bg-linear-to-b from-[#2B7A78] to-[#17252A] p-6 text-white shrink-0">
         <div className="flex items-center gap-3 mb-10">
           <Image
             src="/imagens/UnBemEstarLg1.png"

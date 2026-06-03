@@ -1,6 +1,6 @@
 "use client";
 
-import "../../src/app/globals.css";
+
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -107,7 +107,8 @@ export default function RegisterPage() {
     setDataNascimento(formattedData);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  /**integralizado ao back-end */
+    const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (senha.length < 8) {
@@ -115,11 +116,13 @@ export default function RegisterPage() {
       return;
     }
 
+
     if (senha !== confirmarSenha) {
       alert("As senhas não coincidem!");
       return;
     }
 
+    
     const cpfLimpo = cpf.replace(/\D/g, "");
     if (!validarCPF(cpfLimpo)) {
       alert("O CPF digitado é inválido! Por favor, verifique.");
@@ -127,34 +130,49 @@ export default function RegisterPage() {
     }
 
     const partesData = dataNascimento.split("/");
-    const dataFormatadaBanco = partesData.length === 3 
+    const dataFormatadaBanco = partesData.length === 3
       ? `${partesData[2]}-${partesData[1]}-${partesData[0]}`
       : null;
 
-    const dadosFormulario = {
-      nome,
-      cpf: cpfLimpo,
-      email,
-      telefone: telefone.replace(/\D/g, ""),
-      dataNascimento: dataFormatadaBanco,
-      senha,
-      endereco: endereco || null,
-      convenio: convenio || null,
-    };
+    try {
+      const response = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nome,
+          cpf: cpfLimpo,
+          email,
+          senha,
+          telefone: telefone.replace(/\D/g, ""),
+          dataNascimento: dataFormatadaBanco,
+          endereco: endereco || null,
+          convenio: convenio || null,
+        }),
+      });
 
-    console.log("Dados prontos:", dadosFormulario);
-    
-    // MUDANÇA AQUI: Alerta amigável e redirecionamento imediato para a tela de login
-    alert("Cadastro efetuado com sucesso! Redirecionando para a tela de acesso...");
-    router.push("/login");
+      const data = await response.json();
+
+      if (!response.ok) {
+        alert(data.error || "Erro ao realizar cadastro.");
+        return;
+      }
+
+      alert("Cadastro efetuado com sucesso! Redirecionando para o login...");
+      router.push("/login");
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
+      alert("Erro de conexão. Tente novamente.");
+    }
   };
+  
 
   return (
     <div className="flex min-h-screen w-full items-center justify-center bg-[#F0F7F9] p-4 font-sans">
-      <div className="flex w-full max-w-5xl overflow-hidden rounded-3xl bg-white shadow-xl min-h-[650px]">
+      <div className="flex w-full max-w-5xl overflow-hidden rounded-3xl bg-white shadow-xl min-h-162.5">
         
         {/* LADO ESQUERDO: Painel Verde */}
-        <div className="relative hidden w-1/2 flex-col justify-between bg-gradient-to-b from-[#3AAFA9] to-[#2B7A78] p-12 text-white md:flex">
+        <div className="relative hidden w-1/2 flex-col justify-between bg-linear-to-b from-[#3AAFA9] to-[#2B7A78] p-12 text-white md:flex">
           <div className="flex items-center gap-3 z-10">
             <Image
               src="/imagens/UnBemEstarLg1.png" 
