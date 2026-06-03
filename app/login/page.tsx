@@ -62,33 +62,17 @@ export default function LoginPage() {
     (e.target as HTMLInputElement).setCustomValidity("");
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
 
-  if (senha.length < 8) {
-    alert("A senha digitada está incompleta (mínimo 8 caracteres).");
-    return;
-  }
-
-  try {
-    const response = await fetch("/api/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: identificacao, senha }),
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      alert(data.error || "Erro ao fazer login.");
+    if (senha.length < 8) {
+      alert("A senha digitada está incompleta (mínimo 8 caracteres).");
       return;
     }
 
+    console.log("Autenticando com:", identificacao);
     router.push("/schedule");
-  } catch (err) {
-    alert("Erro de conexão. Tente novamente.");
-  }
-};
+  };
 
   return (
     <div className="flex min-h-screen w-full items-center justify-center bg-[#F0F7F9] p-4 font-sans">
