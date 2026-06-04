@@ -1,0 +1,12 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/lembretes",
+      "schedule": "0 8 * * *"
+    },
+    {
+      "path": "/api/cron/cancelar-reservas",
+      "schedule": "*/5 * * * *"
+    }
+  ]
+}
