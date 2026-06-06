@@ -1,6 +1,5 @@
 "use client";
 
-import "../../src/app/globals.css";
 import Link from "next/link";
 import Image from "next/image";
 
