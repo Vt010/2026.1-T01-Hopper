@@ -6,7 +6,7 @@
     },
     {
       "path": "/api/cron/cancelar-reservas",
-      "schedule": "*/5 * * * *"
+      "schedule": "0 * * * *"
     }
   ]
 }
