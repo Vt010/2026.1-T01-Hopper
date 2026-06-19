@@ -2,265 +2,226 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [mensagem, setMensagem] = useState({ texto: "", tipo: "" });
+  const [form, setForm] = useState({
+    email: "",
+    senha: "",
+  });
 
-  const [identificacao, setIdentificacao] = useState("");
-  const [senha, setSenha] = useState("");
-
-  // Formata o CPF inserindo os pontos e o hífen
-  const formatarCPF = (valor: string) => {
-    const apenasNumeros = valor.replace(/\D/g, "");
-    if (apenasNumeros.length <= 3) return apenasNumeros;
-    if (apenasNumeros.length <= 6)
-      return `${apenasNumeros.slice(0, 3)}.${apenasNumeros.slice(3)}`;
-    if (apenasNumeros.length <= 9)
-      return `${apenasNumeros.slice(0, 3)}.${apenasNumeros.slice(3, 6)}.${apenasNumeros.slice(6)}`;
-    return `${apenasNumeros.slice(0, 3)}.${apenasNumeros.slice(3, 6)}.${apenasNumeros.slice(6, 9)}-${apenasNumeros.slice(9, 11)}`;
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleIdentificacaoInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const target = e.target;
-    const valorOriginal = target.value;
-
-    // CORREÇÃO: Remove tudo que não é número para testar se o usuário está tentando digitar um CPF
-    const apenasNumeros = valorOriginal.replace(/\D/g, "");
-
-    // Se o valor original contiver apenas números (ou números com a formatação de pontos/traço)
-    if (
-      valorOriginal !== "" &&
-      /^\d+$/.test(apenasNumeros) &&
-      !valorOriginal.includes("@")
-    ) {
-      const valorFormatado = formatarCPF(valorOriginal);
-      setIdentificacao(valorFormatado);
-
-      if (apenasNumeros.length < 11) {
-        target.setCustomValidity(
-          "O CPF deve conter exatamente 11 dígitos numéricos.",
-        );
-      } else {
-        target.setCustomValidity("");
-      }
-    } else {
-      // Se tiver letras ou o caractere '@', trata livremente como e-mail e permite todas as letras
-      setIdentificacao(valorOriginal);
-
-      if (valorOriginal === "") {
-        target.setCustomValidity(
-          "Por favor, insira seu e-mail ou CPF para acessar.",
-        );
-      } else if (!valorOriginal.includes("@")) {
-        target.setCustomValidity(
-          `Por favor, inclua um '@' no endereço de e-mail. '${valorOriginal}' está faltando um '@'.`,
-        );
-      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valorOriginal)) {
-        target.setCustomValidity(
-          "Por favor, insira um formato de e-mail válido (ex: nome@dominio.com).",
-        );
-      } else {
-        target.setCustomValidity("");
-      }
-    }
-  };
-
-  const handleInvalidMessage = (
-    e: React.FormEvent<HTMLInputElement>,
-    mensagem: string,
-  ) => {
-    (e.target as HTMLInputElement).setCustomValidity(mensagem);
-  };
-
-  const handleInputClearValidity = (e: React.FormEvent<HTMLInputElement>) => {
-    (e.target as HTMLInputElement).setCustomValidity("");
-  };
-
-  /**integralizado ao back-end */
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (senha.length < 8) {
-      alert("A senha digitada está incompleta (mínimo 8 caracteres)");
-      return;
-    }
+    setMensagem({ texto: "", tipo: "" });
+    setLoading(true);
 
     try {
       const response = await fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          email: identificacao,
-          senha,
+          email: form.email,
+          senha: form.senha,
         }),
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        alert(data.error || "Erro ao fazer login.");
+        setMensagem({ texto: data.error || "Erro ao realizar login.", tipo: "erro" });
+        setLoading(false);
         return;
       }
 
-      router.push("/schedule");
-
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      setMensagem({ texto: "✅ Login realizado com sucesso! Redirecionando...", tipo: "sucesso" });
+      setTimeout(() => router.push("/dashboard"), 1500);
     } catch (error) {
-      alert("Erro de conexão. Tente novamente.");
+      setMensagem({ texto: "Erro de conexão. Tente novamente.", tipo: "erro" });
+      setLoading(false);
     }
   };
 
   return (
-    <div className="flex min-h-screen w-full items-center justify-center bg-[#F0F7F9] p-4 font-sans">
-      <div className="flex w-full max-w-5xl overflow-hidden rounded-3xl bg-white shadow-xl min-h-137.5">
-        {/* LADO ESQUERDO: Formulário */}
-        <div className="flex w-full flex-col justify-center bg-[#FEFFFF] p-8 md:w-1/2">
-          <div className="mx-auto w-full max-w-md space-y-6">
-            <div className="text-center md:text-left">
-              <h2 className="text-3xl font-bold text-[#2B7A78]">
-                Acesse sua Conta
+    <div style={{
+      minHeight: "100vh",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      backgroundColor: "#f0f7f9",
+      padding: "20px",
+      fontFamily: "Arial, sans-serif"
+    }}>
+      <div style={{
+        display: "flex",
+        maxWidth: "1000px",
+        width: "100%",
+        backgroundColor: "white",
+        borderRadius: "24px",
+        overflow: "hidden",
+        boxShadow: "0 20px 60px rgba(0,0,0,0.1)"
+      }}>
+        <div style={{
+          width: "50%",
+          backgroundColor: "#2B7A78",
+          padding: "48px",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+          color: "white"
+        }}>
+          <div>
+            <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+              <span style={{ fontSize: "32px" }}>🩺</span>
+              <div>
+                <h1 style={{ fontSize: "24px", fontWeight: "bold", margin: 0 }}>
+                  Un<span style={{ fontWeight: "900" }}>Bem</span>Estar
+                </h1>
+                <p style={{ fontSize: "12px", opacity: 0.8, letterSpacing: "2px", margin: 0 }}>
+                  FISIOTERAPIA & REABILITAÇÃO
+                </p>
+              </div>
+            </div>
+            <div style={{ marginTop: "60px" }}>
+              <h2 style={{ fontSize: "32px", fontWeight: "bold", lineHeight: "1.2" }}>
+                Bem-vindo de volta!
               </h2>
-              <p className="mt-1 text-xs text-[#718096]">
-                Insira suas credenciais para gerenciar suas sessões
+              <p style={{ opacity: 0.9, marginTop: "16px", fontSize: "14px" }}>
+                Faça login para acessar sua conta e gerenciar suas consultas.
               </p>
             </div>
-
-            <form onSubmit={handleSubmit} className="space-y-4">
-              {/* Campo Duplo Corrigido */}
-              <div className="relative">
-                <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400">
-                  <svg
-                    className="h-4 w-4"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                    />
-                  </svg>
-                </span>
-                <input
-                  type="text"
-                  placeholder="E-mail ou CPF *"
-                  required
-                  onInvalid={(e) =>
-                    handleInvalidMessage(
-                      e,
-                      "Por favor, insira seu e-mail ou CPF para acessar.",
-                    )
-                  }
-                  value={identificacao}
-                  onChange={handleIdentificacaoInput}
-                  className="w-full rounded-xl bg-[#F0F7F9] py-3 pl-11 pr-4 text-sm text-[#2D3748] placeholder-gray-400 outline-none transition-all focus:ring-2 focus:ring-[#3AAFA9]"
-                />
-              </div>
-
-              {/* Senha */}
-              <div className="relative">
-                <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400">
-                  <svg
-                    className="h-4 w-4"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                    />
-                  </svg>
-                </span>
-                <input
-                  type="password"
-                  placeholder="Sua senha *"
-                  required
-                  onInvalid={(e) =>
-                    handleInvalidMessage(e, "Por favor, digite a sua senha.")
-                  }
-                  onInput={handleInputClearValidity}
-                  value={senha}
-                  onChange={(e) => setSenha(e.target.value)}
-                  className="w-full rounded-xl bg-[#F0F7F9] py-3 pl-11 pr-4 text-sm text-[#2D3748] placeholder-gray-400 outline-none transition-all focus:ring-2 focus:ring-[#3AAFA9]"
-                />
-              </div>
-
-              <div className="flex items-center justify-end text-xs">
-                <Link
-                  href="#"
-                  className="font-medium text-[#3AAFA9] hover:underline"
-                >
-                  Esqueceu sua senha?
-                </Link>
-              </div>
-
-              <div className="pt-2 text-center">
-                <button
-                  type="submit"
-                  className="w-full max-w-xs rounded-full bg-[#3AAFA9] py-3 font-semibold text-white shadow-md transition-all hover:bg-[#2B7A78] hover:shadow-lg active:scale-95"
-                >
-                  ENTRAR
-                </button>
-              </div>
-            </form>
-
-            <div className="text-center text-xs text-[#718096] md:hidden">
-              Não tem uma conta?{" "}
-              <Link
-                href="/register"
-                className="font-semibold text-[#2B7A78] hover:underline"
-              >
-                Cadastre-se aqui
-              </Link>
-            </div>
+          </div>
+          <div>
+            <p style={{ opacity: 0.8, fontSize: "14px" }}>Ainda não tem uma conta?</p>
+            <Link href="/register" style={{
+              display: "inline-block",
+              marginTop: "12px",
+              padding: "10px 32px",
+              border: "2px solid white",
+              borderRadius: "30px",
+              color: "white",
+              textDecoration: "none",
+              fontWeight: "bold",
+              fontSize: "14px",
+              transition: "all 0.3s"
+            }}>
+              CRIAR CONTA
+            </Link>
           </div>
         </div>
 
-        {/* LADO DIREITO */}
-        <div className="relative hidden w-1/2 flex-col justify-between bg-linear-to-b from-[#3AAFA9] to-[#2B7A78] p-12 text-white md:flex">
-          <div className="flex items-center gap-3 z-10">
-            <Image
-              src="/imagens/UnBemEstarLg1.png"
-              alt="Logo UnBemEstar"
-              width={60}
-              height={60}
-              className="rounded-xl object-contain bg-white p-1"
-            />
-            <div>
-              <h1 className="text-xl font-medium tracking-wide text-white">
-                Un<span className="font-extrabold text-white">Bem</span>Estar
-              </h1>
-              <p className="text-xs opacity-80 uppercase tracking-widest">
-                Fisioterapia & Reabilitação
-              </p>
+        <div style={{
+          width: "50%",
+          padding: "48px 40px",
+          backgroundColor: "white",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center"
+        }}>
+          <h2 style={{ fontSize: "28px", color: "#2B7A78", marginBottom: "4px" }}>
+            Entrar
+          </h2>
+          <p style={{ fontSize: "14px", color: "#718096", marginBottom: "32px" }}>
+            Preencha seus dados para acessar sua conta
+          </p>
+
+          {mensagem.texto && (
+            <div style={{
+              padding: "12px",
+              borderRadius: "12px",
+              marginBottom: "16px",
+              backgroundColor: mensagem.tipo === "sucesso" ? "#d4edda" : "#f8d7da",
+              color: mensagem.tipo === "sucesso" ? "#155724" : "#721c24",
+              border: `1px solid ${mensagem.tipo === "sucesso" ? "#c3e6cb" : "#f5c6cb"}`
+            }}>
+              {mensagem.texto}
             </div>
-          </div>
+          )}
 
-          <div className="my-auto space-y-4 z-10">
-            <h2 className="text-4xl font-extrabold leading-tight">
-              Bem-vindo de volta!
-            </h2>
-            <p className="text-sm opacity-90 leading-relaxed max-w-sm">
-              Acesse sua conta para visualizar seu histórico de reabilitação e
-              acompanhar seus próximos agendamentos.
-            </p>
-          </div>
+          <form onSubmit={handleSubmit}>
+            <div style={{ marginBottom: "20px" }}>
+              <label style={{ fontSize: "14px", fontWeight: "600", color: "#4a4a4a", display: "block", marginBottom: "6px" }}>
+                E-mail
+              </label>
+              <input
+                type="email"
+                name="email"
+                required
+                placeholder="seu@email.com"
+                value={form.email}
+                onChange={handleChange}
+                style={{
+                  width: "100%",
+                  padding: "12px 16px",
+                  borderRadius: "12px",
+                  border: "1px solid #e2e8f0",
+                  fontSize: "15px",
+                  outline: "none",
+                  transition: "all 0.2s"
+                }}
+              />
+            </div>
 
-          <div className="space-y-4 z-10">
-            <p className="text-sm opacity-80">Ainda não possui cadastro?</p>
-            <Link
-              href="/register"
-              className="inline-block rounded-full border-2 border-white px-8 py-2 font-semibold text-white transition-all hover:bg-white hover:text-[#2B7A78]"
+            <div style={{ marginBottom: "24px" }}>
+              <label style={{ fontSize: "14px", fontWeight: "600", color: "#4a4a4a", display: "block", marginBottom: "6px" }}>
+                Senha
+              </label>
+              <input
+                type="password"
+                name="senha"
+                required
+                placeholder="••••••••"
+                value={form.senha}
+                onChange={handleChange}
+                style={{
+                  width: "100%",
+                  padding: "12px 16px",
+                  borderRadius: "12px",
+                  border: "1px solid #e2e8f0",
+                  fontSize: "15px",
+                  outline: "none",
+                  transition: "all 0.2s"
+                }}
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              style={{
+                width: "100%",
+                padding: "14px",
+                backgroundColor: loading ? "#a0aec0" : "#3AAFA9",
+                color: "white",
+                border: "none",
+                borderRadius: "30px",
+                fontSize: "16px",
+                fontWeight: "bold",
+                cursor: loading ? "not-allowed" : "pointer",
+                transition: "all 0.3s"
+              }}
             >
-              CRIAR CONTA
-            </Link>
+              {loading ? "ENTRANDO..." : "ENTRAR"}
+            </button>
+          </form>
+
+          <div style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "8px",
+            marginTop: "24px",
+            fontSize: "13px",
+            color: "#718096"
+          }}>
+            <span>🔒</span>
+            <span>Seus dados estão protegidos pela LGPD.</span>
           </div>
         </div>
       </div>
