@@ -47,10 +47,10 @@ export default function HomePage() {
               style={{
                 fontSize: "20px",
                 fontWeight: "bold",
-                color: "#2c3e66",
+                color: "#2B7A78",
               }}
             >
-              UnBemEstar
+              Un<span style={{ fontWeight: "900" }}>Bem</span>Estar
             </span>
           </div>
 
@@ -73,14 +73,13 @@ export default function HomePage() {
               Funcionalidades
             </a>
 
-            {/* Botão Time (novo) */}
             <Link href="/contributors">
               <button
                 style={{
                   padding: "8px 16px",
                   backgroundColor: "transparent",
-                  color: "#3b5284",
-                  border: "2px solid #3b5284",
+                  color: "#2B7A78",
+                  border: "2px solid #2B7A78",
                   borderRadius: "30px",
                   cursor: "pointer",
                   fontSize: "13px",
@@ -88,12 +87,12 @@ export default function HomePage() {
                   transition: "all 0.2s",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = "#3b5284";
+                  e.currentTarget.style.backgroundColor = "#2B7A78";
                   e.currentTarget.style.color = "white";
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.backgroundColor = "transparent";
-                  e.currentTarget.style.color = "#3b5284";
+                  e.currentTarget.style.color = "#2B7A78";
                 }}
               >
                 🌟 Time
@@ -108,7 +107,7 @@ export default function HomePage() {
               <button
                 style={{
                   padding: "10px 24px",
-                  backgroundColor: "#3b5284",
+                  backgroundColor: "#2B7A78",
                   color: "white",
                   border: "none",
                   borderRadius: "30px",
@@ -118,10 +117,10 @@ export default function HomePage() {
                   transition: "all 0.2s",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = "#2c3e66";
+                  e.currentTarget.style.backgroundColor = "#3AAFA9";
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = "#3b5284";
+                  e.currentTarget.style.backgroundColor = "#2B7A78";
                 }}
               >
                 Cadastrar
@@ -136,7 +135,7 @@ export default function HomePage() {
         id="home"
         style={{
           padding: "140px 32px 80px",
-          background: "linear-gradient(135deg, #eef2fa 0%, #ffffff 100%)",
+          background: "linear-gradient(135deg, #f0f7f9 0%, #ffffff 100%)",
         }}
       >
         <div
@@ -153,7 +152,7 @@ export default function HomePage() {
             <h1
               style={{
                 fontSize: "48px",
-                color: "#2c3e66",
+                color: "#2B7A78",
                 marginBottom: "20px",
                 lineHeight: "1.2",
               }}
@@ -176,7 +175,7 @@ export default function HomePage() {
                 <button
                   style={{
                     padding: "14px 32px",
-                    backgroundColor: "#3b5284",
+                    backgroundColor: "#2B7A78",
                     color: "white",
                     border: "none",
                     borderRadius: "40px",
@@ -185,10 +184,10 @@ export default function HomePage() {
                     transition: "all 0.2s",
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = "#2c3e66";
+                    e.currentTarget.style.backgroundColor = "#3AAFA9";
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = "#3b5284";
+                    e.currentTarget.style.backgroundColor = "#2B7A78";
                   }}
                 >
                   Começar agora
@@ -199,20 +198,20 @@ export default function HomePage() {
                   style={{
                     padding: "14px 32px",
                     backgroundColor: "transparent",
-                    color: "#3b5284",
-                    border: "2px solid #3b5284",
+                    color: "#2B7A78",
+                    border: "2px solid #2B7A78",
                     borderRadius: "40px",
                     fontSize: "16px",
                     cursor: "pointer",
                     transition: "all 0.2s",
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = "#3b5284";
+                    e.currentTarget.style.backgroundColor = "#2B7A78";
                     e.currentTarget.style.color = "white";
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.backgroundColor = "transparent";
-                    e.currentTarget.style.color = "#3b5284";
+                    e.currentTarget.style.color = "#2B7A78";
                   }}
                 >
                   Ver calendário
@@ -223,14 +222,14 @@ export default function HomePage() {
 
           <div
             style={{
-              backgroundColor: "#eef2fa",
+              backgroundColor: "#f0f7f9",
               borderRadius: "24px",
               padding: "40px",
               textAlign: "center",
             }}
           >
             <span style={{ fontSize: "80px" }}>📅</span>
-            <p style={{ marginTop: "16px", color: "#2c3e66", fontSize: "18px" }}>
+            <p style={{ marginTop: "16px", color: "#2B7A78", fontSize: "18px" }}>
               Agendamento simplificado
             </p>
           </div>
@@ -240,7 +239,7 @@ export default function HomePage() {
       {/* ========== ABOUT SECTION ========== */}
       <section id="about" style={{ padding: "80px 32px" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto", textAlign: "center" }}>
-          <h2 style={{ fontSize: "32px", color: "#2c3e66", marginBottom: "16px" }}>
+          <h2 style={{ fontSize: "32px", color: "#2B7A78", marginBottom: "16px" }}>
             Sobre o UnBemEstar
           </h2>
           <p
@@ -264,10 +263,10 @@ export default function HomePage() {
       {/* ========== FEATURES SECTION ========== */}
       <section
         id="features"
-        style={{ padding: "80px 32px", backgroundColor: "#f8fafc" }}
+        style={{ padding: "80px 32px", backgroundColor: "#f0f7f9" }}
       >
         <div style={{ maxWidth: "1200px", margin: "0 auto", textAlign: "center" }}>
-          <h2 style={{ fontSize: "32px", color: "#2c3e66", marginBottom: "16px" }}>
+          <h2 style={{ fontSize: "32px", color: "#2B7A78", marginBottom: "16px" }}>
             Funcionalidades
           </h2>
           <p style={{ color: "#64748b", marginBottom: "48px" }}>
@@ -306,7 +305,7 @@ export default function HomePage() {
                 }}
               >
                 <span style={{ fontSize: "40px" }}>{item.icon}</span>
-                <h3 style={{ marginTop: "16px", color: "#2c3e66", fontSize: "18px" }}>
+                <h3 style={{ marginTop: "16px", color: "#2B7A78", fontSize: "18px" }}>
                   {item.title}
                 </h3>
                 <p style={{ color: "#64748b", fontSize: "14px" }}>{item.desc}</p>
@@ -319,7 +318,7 @@ export default function HomePage() {
       {/* ========== FOOTER ========== */}
       <footer
         style={{
-          backgroundColor: "#2c3e66",
+          backgroundColor: "#2B7A78",
           color: "white",
           padding: "48px 32px",
           textAlign: "center",
@@ -339,7 +338,7 @@ export default function HomePage() {
           <Link
             href="/contributors"
             style={{
-              color: "#94a3b8",
+              color: "#cbd5e1",
               textDecoration: "none",
               fontSize: "14px",
               transition: "color 0.2s",
@@ -348,7 +347,7 @@ export default function HomePage() {
               e.currentTarget.style.color = "white";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.color = "#94a3b8";
+              e.currentTarget.style.color = "#cbd5e1";
             }}
           >
             🌟 Conheça o time
@@ -356,7 +355,7 @@ export default function HomePage() {
           <Link
             href="/login"
             style={{
-              color: "#94a3b8",
+              color: "#cbd5e1",
               textDecoration: "none",
               fontSize: "14px",
               transition: "color 0.2s",
@@ -365,7 +364,7 @@ export default function HomePage() {
               e.currentTarget.style.color = "white";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.color = "#94a3b8";
+              e.currentTarget.style.color = "#cbd5e1";
             }}
           >
             Entrar
@@ -373,7 +372,7 @@ export default function HomePage() {
           <Link
             href="/register"
             style={{
-              color: "#94a3b8",
+              color: "#cbd5e1",
               textDecoration: "none",
               fontSize: "14px",
               transition: "color 0.2s",
@@ -382,7 +381,7 @@ export default function HomePage() {
               e.currentTarget.style.color = "white";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.color = "#94a3b8";
+              e.currentTarget.style.color = "#cbd5e1";
             }}
           >
             Cadastrar
@@ -393,7 +392,7 @@ export default function HomePage() {
           style={{
             marginTop: "16px",
             fontSize: "14px",
-            color: "#94a3b8",
+            color: "#cbd5e1",
           }}
         >
           Desenvolvido por alunos da UnB — MDS 2026.1

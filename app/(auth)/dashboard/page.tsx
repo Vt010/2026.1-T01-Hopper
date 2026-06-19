@@ -9,6 +9,7 @@ export default function DashboardPage() {
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
+  // Dados mockados
   const [proximasConsultas] = useState([
     { id: 1, data: "10/06/2026", hora: "09:00", profissional: "Dra. Fernanda Lima", status: "confirmada" },
     { id: 2, data: "13/06/2026", hora: "11:00", profissional: "Dr. Carlos Mendes", status: "pendente" },
@@ -23,7 +24,6 @@ export default function DashboardPage() {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-
         setUser({ nome: "Paciente", email: "paciente@teste.com" });
         setLoading(false);
       } catch (error) {
@@ -64,6 +64,7 @@ export default function DashboardPage() {
       display: "flex",
       fontFamily: "Arial, sans-serif"
     }}>
+      {/* SIDEBAR */}
       <aside style={{
         width: "240px",
         minHeight: "100vh",
@@ -130,6 +131,7 @@ export default function DashboardPage() {
         </Link>
       </aside>
 
+      {/* CONTEÚDO PRINCIPAL */}
       <main style={{
         flex: 1,
         padding: "32px 40px",
@@ -144,6 +146,7 @@ export default function DashboardPage() {
           </p>
         </div>
 
+        {/* Cards de resumo */}
         <div style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
@@ -172,6 +175,7 @@ export default function DashboardPage() {
           ))}
         </div>
 
+        {/* Próximas consultas */}
         <div style={{
           backgroundColor: "white",
           borderRadius: "16px",
@@ -243,6 +247,7 @@ export default function DashboardPage() {
           )}
         </div>
 
+        {/* Histórico */}
         <div style={{
           backgroundColor: "white",
           borderRadius: "16px",
