@@ -1,5 +1,10 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+SUPABASE_URL=https://krafsmmgbymlldxdibhs.supabase.co/
+SUPABASE_ANON_KEY=sb_publishable_F-LsypQ_RYIqRmmpzwnk3w_Tlc8nM4k
+SUPABASE_SERVICE_ROLE_KEY=sb_secret_TsOFPdszgK6go4e6GXvaOA_xVDeqCk9
+
+
 # dependencies
 /node_modules
 /.pnp
