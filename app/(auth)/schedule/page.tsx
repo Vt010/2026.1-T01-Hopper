@@ -24,7 +24,7 @@ import {
 } from "lucide-react";
 
 // ─────────────────────────────────────────────────────────────
-// TYPES
+// tipos
 // ─────────────────────────────────────────────────────────────
 interface Servico {
   id: string;
@@ -43,8 +43,8 @@ interface Profissional {
 }
 
 interface Slot {
-  data: string;   // "YYYY-MM-DD"
-  hora: string;   // "HH:MM"
+  data: string;  
+  hora: string;  
 }
 
 type TipoAtendimento = "presencial" | "domiciliar";
@@ -62,7 +62,7 @@ interface FormData {
 }
 
 // ─────────────────────────────────────────────────────────────
-// SIDEBAR — idêntica ao design system
+// SIDEBAR 
 // ─────────────────────────────────────────────────────────────
 function Sidebar({ activeHref }: { activeHref: string }) {
   const navLinks = [
@@ -739,6 +739,21 @@ function Etapa5({
   );
 }
 
+
+    function Shell({ children }: { children: React.ReactNode }) {
+  return (
+    <div style={{ minHeight: "100vh", backgroundColor: "#f0f7f9", display: "flex", fontFamily: "Arial, sans-serif" }}>
+      <style>{`
+        @keyframes pulse  { 0%, 100% { opacity: 1; } 50% { opacity: 0.55; } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes spin   { to { transform: rotate(360deg); } }
+      `}</style>
+      <Sidebar activeHref="/schedule" />
+      {children}
+    </div>
+  );
+}
+
 // ─────────────────────────────────────────────────────────────
 // PÁGINA PRINCIPAL
 // ─────────────────────────────────────────────────────────────
@@ -842,17 +857,9 @@ function ScheduleContent() {
     }
   }
 
-  const Shell = ({ children }: { children: React.ReactNode }) => (
-    <div style={{ minHeight: "100vh", backgroundColor: "#f0f7f9", display: "flex", fontFamily: "Arial, sans-serif" }}>
-      <style>{`
-        @keyframes pulse  { 0%, 100% { opacity: 1; } 50% { opacity: 0.55; } }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes spin   { to { transform: rotate(360deg); } }
-      `}</style>
-      <Sidebar activeHref="/schedule" />
-      {children}
-    </div>
-  );
+  
+
+
 
   return (
     <Shell>

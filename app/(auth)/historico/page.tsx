@@ -28,11 +28,23 @@ interface Consulta {
 // ──────────────────────────────────────────────
 function Sidebar({ activeHref }: { activeHref: string }) {
   const navLinks = [
-    { href: "/dashboard",    icon: <LayoutDashboard size={16} />, label: "Painel Principal" },
-    { href: "/schedule",     icon: <Calendar         size={16} />, label: "Novo Agendamento" },
-    { href: "/historico",    icon: <ClipboardList    size={16} />, label: "Histórico" },
-    { href: "/servicos",     icon: <Wrench           size={16} />, label: "Serviços" },
-    { href: "/contributors", icon: <Users            size={16} />, label: "Equipe" },
+    {
+      href: "/dashboard",
+      icon: <LayoutDashboard size={16} />,
+      label: "Painel Principal",
+    },
+    {
+      href: "/schedule",
+      icon: <Calendar size={16} />,
+      label: "Novo Agendamento",
+    },
+    {
+      href: "/historico",
+      icon: <ClipboardList size={16} />,
+      label: "Histórico",
+    },
+    { href: "/servicos", icon: <Wrench size={16} />, label: "Serviços" },
+    { href: "/contributors", icon: <Users size={16} />, label: "Equipe" },
   ];
 
   return (
@@ -50,7 +62,14 @@ function Sidebar({ activeHref }: { activeHref: string }) {
       }}
     >
       {/* Logo — idêntico ao header da landing page */}
-      <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "32px" }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "10px",
+          marginBottom: "32px",
+        }}
+      >
         <div
           style={{
             backgroundColor: "white",
@@ -69,17 +88,39 @@ function Sidebar({ activeHref }: { activeHref: string }) {
           />
         </div>
         <div>
-          <h1 style={{ fontSize: "18px", fontWeight: "bold", color: "white", margin: 0, lineHeight: 1 }}>
+          <h1
+            style={{
+              fontSize: "18px",
+              fontWeight: "bold",
+              color: "white",
+              margin: 0,
+              lineHeight: 1,
+            }}
+          >
             Un<span style={{ fontWeight: "900" }}>Bem</span>Estar
           </h1>
-          <p style={{ fontSize: "10px", color: "#cbd5e1", letterSpacing: "1px", margin: "3px 0 0" }}>
+          <p
+            style={{
+              fontSize: "10px",
+              color: "#cbd5e1",
+              letterSpacing: "1px",
+              margin: "3px 0 0",
+            }}
+          >
             ÁREA DO PACIENTE
           </p>
         </div>
       </div>
 
       {/* Nav links */}
-      <nav style={{ flex: 1, display: "flex", flexDirection: "column", gap: "4px" }}>
+      <nav
+        style={{
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+          gap: "4px",
+        }}
+      >
         {navLinks.map(({ href, icon, label }) => {
           const active = href === activeHref;
           return (
@@ -93,17 +134,22 @@ function Sidebar({ activeHref }: { activeHref: string }) {
                 padding: "10px 12px",
                 borderRadius: "10px",
                 textDecoration: "none",
-                backgroundColor: active ? "rgba(255,255,255,0.18)" : "transparent",
+                backgroundColor: active
+                  ? "rgba(255,255,255,0.18)"
+                  : "transparent",
                 color: active ? "white" : "rgba(255,255,255,0.70)",
                 fontSize: "14px",
                 fontWeight: active ? "600" : "400",
                 transition: "all 0.2s",
               }}
               onMouseEnter={(e) => {
-                if (!active) e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.10)";
+                if (!active)
+                  e.currentTarget.style.backgroundColor =
+                    "rgba(255,255,255,0.10)";
               }}
               onMouseLeave={(e) => {
-                if (!active) e.currentTarget.style.backgroundColor = "transparent";
+                if (!active)
+                  e.currentTarget.style.backgroundColor = "transparent";
               }}
             >
               {icon} {label}
@@ -127,8 +173,12 @@ function Sidebar({ activeHref }: { activeHref: string }) {
           fontSize: "14px",
           transition: "all 0.2s",
         }}
-        onMouseEnter={(e) => { e.currentTarget.style.color = "white"; }}
-        onMouseLeave={(e) => { e.currentTarget.style.color = "rgba(255,255,255,0.45)"; }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.color = "white";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.color = "rgba(255,255,255,0.45)";
+        }}
       >
         <LogOut size={16} /> Sair
       </Link>
@@ -139,7 +189,13 @@ function Sidebar({ activeHref }: { activeHref: string }) {
 // ──────────────────────────────────────────────
 // SKELETON BAR
 // ──────────────────────────────────────────────
-function SkeletonBar({ width, height = 14 }: { width: string; height?: number }) {
+function SkeletonBar({
+  width,
+  height = 14,
+}: {
+  width: string;
+  height?: number;
+}) {
   return (
     <div
       style={{
@@ -154,6 +210,28 @@ function SkeletonBar({ width, height = 14 }: { width: string; height?: number })
   );
 }
 
+
+
+  function Shell({ children }: { children: React.ReactNode }) {
+  return (
+    <div
+      style={{
+        minHeight: "100vh",
+        backgroundColor: "#f0f7f9",
+        display: "flex",
+        fontFamily: "Arial, sans-serif",
+      }}
+    >
+      <style>{`@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.55; } }`}</style>
+      <Sidebar activeHref="/historico" />
+      {children}
+    </div>
+  );
+}  
+
+
+
+
 // ──────────────────────────────────────────────
 // PÁGINA
 // ──────────────────────────────────────────────
@@ -162,8 +240,12 @@ export default function HistoricoPage() {
   const [consultas, setConsultas] = useState<Consulta[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [abaAtiva, setAbaAtiva] = useState<"proximas" | "historico">("proximas");
+  const [abaAtiva, setAbaAtiva] = useState<"proximas" | "historico">(
+    "proximas",
+  );
   const [cancelando, setCancelando] = useState<string | null>(null);
+
+  
 
   useEffect(() => {
     async function fetchConsultas() {
@@ -185,12 +267,60 @@ export default function HistoricoPage() {
         if (data.length === 0) {
           await new Promise((r) => setTimeout(r, 600));
           data = [
-            { id: "1", data: "2026-07-15", hora: "09:00", profissional: "Dra. Fernanda Lima",  servico: "Fisioterapia Ortopédica",   status: "confirmada", podeCancelar: true },
-            { id: "2", data: "2026-07-22", hora: "14:00", profissional: "Dr. Carlos Mendes",   servico: "RPG",                       status: "pendente",   podeCancelar: true },
-            { id: "3", data: "2026-06-10", hora: "10:00", profissional: "Dra. Fernanda Lima",  servico: "Fisioterapia Neurológica",  status: "concluída",  podeCancelar: false },
-            { id: "4", data: "2026-05-29", hora: "14:00", profissional: "Dr. Carlos Mendes",   servico: "Pilates Terapêutico",       status: "concluída",  podeCancelar: false },
-            { id: "5", data: "2026-05-26", hora: "10:00", profissional: "Dra. Fernanda Lima",  servico: "Fisioterapia Ortopédica",   status: "cancelada",  podeCancelar: false },
-            { id: "6", data: "2026-06-05", hora: "11:00", profissional: "Dra. Marina Costa",   servico: "Fisioterapia Respiratória", status: "concluída",  podeCancelar: false },
+            {
+              id: "1",
+              data: "2026-07-15",
+              hora: "09:00",
+              profissional: "Dra. Fernanda Lima",
+              servico: "Fisioterapia Ortopédica",
+              status: "confirmada",
+              podeCancelar: true,
+            },
+            {
+              id: "2",
+              data: "2026-07-22",
+              hora: "14:00",
+              profissional: "Dr. Carlos Mendes",
+              servico: "RPG",
+              status: "pendente",
+              podeCancelar: true,
+            },
+            {
+              id: "3",
+              data: "2026-06-10",
+              hora: "10:00",
+              profissional: "Dra. Fernanda Lima",
+              servico: "Fisioterapia Neurológica",
+              status: "concluída",
+              podeCancelar: false,
+            },
+            {
+              id: "4",
+              data: "2026-05-29",
+              hora: "14:00",
+              profissional: "Dr. Carlos Mendes",
+              servico: "Pilates Terapêutico",
+              status: "concluída",
+              podeCancelar: false,
+            },
+            {
+              id: "5",
+              data: "2026-05-26",
+              hora: "10:00",
+              profissional: "Dra. Fernanda Lima",
+              servico: "Fisioterapia Ortopédica",
+              status: "cancelada",
+              podeCancelar: false,
+            },
+            {
+              id: "6",
+              data: "2026-06-05",
+              hora: "11:00",
+              profissional: "Dra. Marina Costa",
+              servico: "Fisioterapia Respiratória",
+              status: "concluída",
+              podeCancelar: false,
+            },
           ];
         }
 
@@ -215,8 +345,10 @@ export default function HistoricoPage() {
       await new Promise((r) => setTimeout(r, 800));
       setConsultas((prev) =>
         prev.map((c) =>
-          c.id === consultaId ? { ...c, status: "cancelada", podeCancelar: false } : c
-        )
+          c.id === consultaId
+            ? { ...c, status: "cancelada", podeCancelar: false }
+            : c,
+        ),
       );
       alert("✅ Consulta cancelada com sucesso!");
     } catch (err) {
@@ -233,31 +365,35 @@ export default function HistoricoPage() {
 
   const getStatusStyle = (status: string) => {
     switch (status) {
-      case "confirmada": return { bg: "#d4edda", color: "#155724", label: "Confirmada" };
-      case "pendente":   return { bg: "#fff3cd", color: "#856404", label: "Pendente" };
-      case "concluída":  return { bg: "#e6f7f5", color: "#2B7A78", label: "Concluída" };
-      case "cancelada":  return { bg: "#f8d7da", color: "#721c24", label: "Cancelada" };
-      default:           return { bg: "#e2e3e5", color: "#383d41", label: status };
+      case "confirmada":
+        return { bg: "#d4edda", color: "#155724", label: "Confirmada" };
+      case "pendente":
+        return { bg: "#fff3cd", color: "#856404", label: "Pendente" };
+      case "concluída":
+        return { bg: "#e6f7f5", color: "#2B7A78", label: "Concluída" };
+      case "cancelada":
+        return { bg: "#f8d7da", color: "#721c24", label: "Cancelada" };
+      default:
+        return { bg: "#e2e3e5", color: "#383d41", label: status };
     }
   };
 
   const formatarData = (data: string) =>
     new Date(data + "T12:00:00").toLocaleDateString("pt-BR", {
-      day: "2-digit", month: "long", year: "numeric",
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
     });
 
-  const proximas      = consultas.filter((c) => c.status === "confirmada" || c.status === "pendente");
-  const historicoList = consultas.filter((c) => c.status === "concluída"  || c.status === "cancelada");
+  const proximas = consultas.filter(
+    (c) => c.status === "confirmada" || c.status === "pendente",
+  );
+  const historicoList = consultas.filter(
+    (c) => c.status === "concluída" || c.status === "cancelada",
+  );
   const consultasFiltradas = abaAtiva === "proximas" ? proximas : historicoList;
 
-  // Helper para envolver com o layout base (sidebar + fundo)
-  const Shell = ({ children }: { children: React.ReactNode }) => (
-    <div style={{ minHeight: "100vh", backgroundColor: "#f0f7f9", display: "flex", fontFamily: "Arial, sans-serif" }}>
-      <style>{`@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.55; } }`}</style>
-      <Sidebar activeHref="/historico" />
-      {children}
-    </div>
-  );
+
 
   // ── Loading skeleton ──
   if (loading) {
@@ -295,7 +431,15 @@ export default function HistoricoPage() {
   if (error) {
     return (
       <Shell>
-        <main style={{ flex: 1, padding: "40px 48px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <main
+          style={{
+            flex: 1,
+            padding: "40px 48px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           <div style={{ textAlign: "center" }}>
             <p style={{ color: "#dc2626", fontSize: "18px" }}>⚠️ {error}</p>
             <button
@@ -312,8 +456,12 @@ export default function HistoricoPage() {
                 fontWeight: "600",
                 transition: "all 0.2s",
               }}
-              onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#3AAFA9"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "#2B7A78"; }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = "#3AAFA9";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = "#2B7A78";
+              }}
             >
               Tentar novamente
             </button>
@@ -327,10 +475,16 @@ export default function HistoricoPage() {
   return (
     <Shell>
       <main style={{ flex: 1, padding: "40px 48px", overflowY: "auto" }}>
-
         {/* Cabeçalho */}
         <div style={{ marginBottom: "28px" }}>
-          <h1 style={{ fontSize: "28px", color: "#2B7A78", margin: 0, fontWeight: "bold" }}>
+          <h1
+            style={{
+              fontSize: "28px",
+              color: "#2B7A78",
+              margin: 0,
+              fontWeight: "bold",
+            }}
+          >
             Histórico de Consultas
           </h1>
           <p style={{ color: "#64748b", margin: "4px 0 0", fontSize: "15px" }}>
@@ -391,8 +545,16 @@ export default function HistoricoPage() {
             }}
           >
             <span style={{ fontSize: "64px" }}>📭</span>
-            <h2 style={{ fontSize: "20px", color: "#2d3748", margin: "16px 0 8px" }}>
-              {abaAtiva === "proximas" ? "Nenhuma consulta agendada" : "Nenhuma consulta no histórico"}
+            <h2
+              style={{
+                fontSize: "20px",
+                color: "#2d3748",
+                margin: "16px 0 8px",
+              }}
+            >
+              {abaAtiva === "proximas"
+                ? "Nenhuma consulta agendada"
+                : "Nenhuma consulta no histórico"}
             </h2>
             <p style={{ color: "#64748b", fontSize: "14px" }}>
               {abaAtiva === "proximas"
@@ -414,8 +576,12 @@ export default function HistoricoPage() {
                     fontWeight: "600",
                     transition: "all 0.2s",
                   }}
-                  onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#3AAFA9"; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "#2B7A78"; }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = "#3AAFA9";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = "#2B7A78";
+                  }}
                 >
                   + Agendar agora
                 </button>
@@ -438,18 +604,42 @@ export default function HistoricoPage() {
                   transition: "box-shadow 0.2s, transform 0.2s",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = "0 8px 25px rgba(0,0,0,0.08)";
+                  e.currentTarget.style.boxShadow =
+                    "0 8px 25px rgba(0,0,0,0.08)";
                   e.currentTarget.style.transform = "translateY(-2px)";
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = "0 2px 8px rgba(0,0,0,0.04)";
+                  e.currentTarget.style.boxShadow =
+                    "0 2px 8px rgba(0,0,0,0.04)";
                   e.currentTarget.style.transform = "translateY(0)";
                 }}
               >
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "12px" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "flex-start",
+                    flexWrap: "wrap",
+                    gap: "12px",
+                  }}
+                >
                   <div style={{ flex: 1 }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
-                      <h3 style={{ fontSize: "16px", fontWeight: "600", color: "#2d3748", margin: 0 }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "12px",
+                        flexWrap: "wrap",
+                      }}
+                    >
+                      <h3
+                        style={{
+                          fontSize: "16px",
+                          fontWeight: "600",
+                          color: "#2d3748",
+                          margin: 0,
+                        }}
+                      >
                         {consulta.profissional}
                       </h3>
                       <span
@@ -466,17 +656,33 @@ export default function HistoricoPage() {
                         {status.label}
                       </span>
                     </div>
-                    <p style={{ fontSize: "14px", color: "#64748b", margin: "6px 0 2px" }}>
+                    <p
+                      style={{
+                        fontSize: "14px",
+                        color: "#64748b",
+                        margin: "6px 0 2px",
+                      }}
+                    >
                       📅 {formatarData(consulta.data)} às {consulta.hora}
                     </p>
-                    <p style={{ fontSize: "14px", color: "#64748b", margin: 0 }}>
+                    <p
+                      style={{ fontSize: "14px", color: "#64748b", margin: 0 }}
+                    >
                       🛠️ {consulta.servico}
                     </p>
                   </div>
 
                   {/* Ações */}
-                  <div style={{ display: "flex", gap: "8px", alignItems: "center", flexWrap: "wrap" }}>
-                    {consulta.status === "confirmada" || consulta.status === "pendente" ? (
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "8px",
+                      alignItems: "center",
+                      flexWrap: "wrap",
+                    }}
+                  >
+                    {consulta.status === "confirmada" ||
+                    consulta.status === "pendente" ? (
                       <>
                         <button
                           onClick={() => handleRemarcar(consulta.id)}
@@ -491,8 +697,13 @@ export default function HistoricoPage() {
                             cursor: "pointer",
                             transition: "all 0.2s",
                           }}
-                          onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#e6f7f5"; }}
-                          onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "transparent"; }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.backgroundColor = "#e6f7f5";
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.backgroundColor =
+                              "transparent";
+                          }}
                         >
                           📅 Remarcar
                         </button>
@@ -508,20 +719,34 @@ export default function HistoricoPage() {
                               borderRadius: "30px",
                               fontSize: "12px",
                               fontWeight: "500",
-                              cursor: cancelando === consulta.id ? "not-allowed" : "pointer",
+                              cursor:
+                                cancelando === consulta.id
+                                  ? "not-allowed"
+                                  : "pointer",
                               opacity: cancelando === consulta.id ? 0.5 : 1,
                               transition: "all 0.2s",
                             }}
-                            onMouseEnter={(e) => { if (cancelando !== consulta.id) e.currentTarget.style.backgroundColor = "#fef2f2"; }}
-                            onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "transparent"; }}
+                            onMouseEnter={(e) => {
+                              if (cancelando !== consulta.id)
+                                e.currentTarget.style.backgroundColor =
+                                  "#fef2f2";
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.backgroundColor =
+                                "transparent";
+                            }}
                           >
-                            {cancelando === consulta.id ? "Cancelando..." : "❌ Cancelar"}
+                            {cancelando === consulta.id
+                              ? "Cancelando..."
+                              : "❌ Cancelar"}
                           </button>
                         )}
                       </>
                     ) : (
                       <span style={{ fontSize: "13px", color: "#a0aec0" }}>
-                        {consulta.status === "concluída" ? "✅ Realizada" : "❌ Cancelada"}
+                        {consulta.status === "concluída"
+                          ? "✅ Realizada"
+                          : "❌ Cancelada"}
                       </span>
                     )}
                   </div>
@@ -541,7 +766,8 @@ export default function HistoricoPage() {
             paddingTop: "20px",
           }}
         >
-          © 2026 UnBemEstar — Todos os direitos reservados &nbsp;·&nbsp; Desenvolvido por alunos da UnB — MDS 2026.1
+          © 2026 UnBemEstar — Todos os direitos reservados &nbsp;·&nbsp;
+          Desenvolvido por alunos da UnB — MDS 2026.1
         </div>
       </main>
     </Shell>
