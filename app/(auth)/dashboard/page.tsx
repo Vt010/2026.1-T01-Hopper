@@ -32,7 +32,7 @@ interface ProximaConsulta {
   servico: string;
 }
 
-// 🔁 ID fixo para testes (substituir pelo real depois)
+// ID fixo para testes (substituir pelo real depois)
 const USER_ID_FIXO = "user-teste-123";
 
 export default function DashboardPage() {
@@ -61,10 +61,10 @@ export default function DashboardPage() {
       try {
         setLoading(true);
 
-        // 🔁 Usar ID fixo (sem Supabase Auth)
+        //  Usar ID fixo (sem Supabase Auth)
         const userId = USER_ID_FIXO;
 
-        // Tentar buscar dados reais, com fallback para mock
+        // tentar buscar dados reais, com fallback para mock
         let userData = { nome: "Paciente Teste", email: "paciente@teste.com" };
         let consultasMock: Consulta[] = [];
 
@@ -76,13 +76,13 @@ export default function DashboardPage() {
             userData = { nome: data.nome || "Paciente", email: data.email };
           }
         } catch {
-          // Fallback: dados mockados
+          // fallback: dados mockados
           console.log("Usando dados mockados (API não disponível)");
         }
 
         setUser(userData);
 
-        // Mock de consultas (enquanto a API não existe)
+        // mock de consultas (enquanto a API não existe)
         consultasMock = [
           { id: "1", data: "2026-07-10", hora: "09:00", profissional: "Dra. Fernanda Lima", servico: "Fisioterapia Ortopédica", status: "confirmada" },
           { id: "2", data: "2026-06-02", hora: "10:00", profissional: "Dra. Fernanda Lima", servico: "RPG", status: "concluída" },
@@ -90,20 +90,20 @@ export default function DashboardPage() {
           { id: "4", data: "2026-05-26", hora: "10:00", profissional: "Dra. Fernanda Lima", servico: "Fisioterapia", status: "cancelada" },
         ];
 
-        // Calcular estatísticas
+        // calcular estatísticas
         const total = consultasMock.length;
         const concluidas = consultasMock.filter(c => c.status === "concluída").length;
         const canceladas = consultasMock.filter(c => c.status === "cancelada").length;
         setStats({ totalConsultas: total, concluidas, canceladas });
 
-        // Encontrar próxima consulta
+        // encontrar próxima consulta
         const futuras = consultasMock
           .filter(c => c.status === "confirmada" || c.status === "pendente")
           .sort((a, b) => new Date(a.data).getTime() - new Date(b.data).getTime());
 
         setProximaConsulta(futuras.length > 0 ? futuras[0] : null);
 
-        // Últimas 3 consultas (concluídas ou canceladas)
+        // ultimas 3 consultas (concluídas ou canceladas)
         const ultimas = consultasMock
           .filter(c => c.status === "concluída" || c.status === "cancelada")
           .sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime())
@@ -476,7 +476,7 @@ export default function DashboardPage() {
               color: "#2B7A78",
               margin: "0 0 16px 0"
             }}>
-              🚀 Acesso Rápido
+               Acesso Rápido
             </h2>
             <div style={{
               display: "grid",
