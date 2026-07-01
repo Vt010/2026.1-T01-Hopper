@@ -194,7 +194,7 @@ export default function LoginPage() {
 
               <div className="flex items-center justify-end text-xs">
                 <Link
-                  href="#"
+                  href="/esqueceu-senha"
                   className="font-medium text-[#3AAFA9] hover:underline"
                 >
                   Esqueceu sua senha?
