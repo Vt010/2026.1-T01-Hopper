@@ -112,7 +112,7 @@ export default function EquipePage() {
   }, []);
 
   const todasEspecialidades = Array.from(
-    new Set(profissionais.flatMap((p) => p.especialidades))
+    new Set(profissionais.flatMap((p) => p.especialidades)),
   ).sort();
 
   const profissionaisFiltrados = filtroAtivo
@@ -341,7 +341,9 @@ export default function EquipePage() {
             >
               👥 Corpo Clínico
             </h1>
-            <p style={{ color: "#718096", margin: "4px 0 0", fontSize: "14px" }}>
+            <p
+              style={{ color: "#718096", margin: "4px 0 0", fontSize: "14px" }}
+            >
               Conheça nossa equipe de fisioterapeutas
             </p>
           </div>
@@ -380,9 +382,7 @@ export default function EquipePage() {
                   >
                     {esp}
                     {filtroAtivo === esp && (
-                      <span style={{ marginLeft: "6px", opacity: 0.8 }}>
-                        ✕
-                      </span>
+                      <span style={{ marginLeft: "6px", opacity: 0.8 }}>✕</span>
                     )}
                   </button>
                 ))}
@@ -412,7 +412,8 @@ export default function EquipePage() {
                 Nenhum profissional encontrado
               </h2>
               <p style={{ color: "#718096", fontSize: "14px" }}>
-                Nenhum profissional com a especialidade "{filtroAtivo}".
+                Nenhum profissional com a especialidade &quot;{filtroAtivo}
+                &quot;.
               </p>
               <button
                 onClick={() => setFiltroAtivo(null)}
@@ -468,6 +469,7 @@ export default function EquipePage() {
                         }}
                       >
                         {prof.foto ? (
+                          // eslint-disable-next-line @next/next/no-img-element
                           <img
                             src={prof.foto}
                             alt={prof.nome}
@@ -485,7 +487,8 @@ export default function EquipePage() {
                               width: "56px",
                               height: "56px",
                               borderRadius: "50%",
-                              background: "linear-gradient(135deg, #2B7A78, #3AAFA9)",
+                              background:
+                                "linear-gradient(135deg, #2B7A78, #3AAFA9)",
                               display: "flex",
                               alignItems: "center",
                               justifyContent: "center",
@@ -544,8 +547,7 @@ export default function EquipePage() {
                               border: "none",
                               backgroundColor:
                                 filtroAtivo === esp ? "#2B7A78" : "#e6f7f5",
-                              color:
-                                filtroAtivo === esp ? "white" : "#2B7A78",
+                              color: filtroAtivo === esp ? "white" : "#2B7A78",
                               fontWeight: "600",
                             }}
                           >
@@ -612,7 +614,8 @@ export default function EquipePage() {
                             padding: "10px",
                             borderRadius: "12px",
                             border: "none",
-                            background: "linear-gradient(135deg, #2B7A78, #3AAFA9)",
+                            background:
+                              "linear-gradient(135deg, #2B7A78, #3AAFA9)",
                             color: "white",
                             fontSize: "13px",
                             fontWeight: "600",
