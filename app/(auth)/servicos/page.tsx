@@ -164,6 +164,19 @@ function SkeletonBlock() {
   );
 }
 
+
+  
+  const Shell = ({ children }: { children: React.ReactNode }) => (
+    <div style={{ minHeight: "100vh", backgroundColor: "#f0f7f9", display: "flex", fontFamily: "Arial, sans-serif" }}>
+      <style>{`
+        @keyframes pulse   { 0%, 100% { opacity: 1; } 50% { opacity: 0.55; } }
+        @keyframes fadeIn  { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+      `}</style>
+      <Sidebar activeHref="/servicos" />
+      {children}
+    </div>
+  );
+
 // ──────────────────────────────────────────────
 // PÁGINA
 // ──────────────────────────────────────────────
@@ -264,16 +277,6 @@ export default function ServicosPage() {
   const toggleExpand = (id: string) => setExpandedId(expandedId === id ? null : id);
   const handleAgendar = (servicoId: string) => router.push(`/schedule?servico=${servicoId}`);
 
-  const Shell = ({ children }: { children: React.ReactNode }) => (
-    <div style={{ minHeight: "100vh", backgroundColor: "#f0f7f9", display: "flex", fontFamily: "Arial, sans-serif" }}>
-      <style>{`
-        @keyframes pulse   { 0%, 100% { opacity: 1; } 50% { opacity: 0.55; } }
-        @keyframes fadeIn  { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
-      `}</style>
-      <Sidebar activeHref="/servicos" />
-      {children}
-    </div>
-  );
 
   // ── Loading skeleton ──
   if (loading) {
